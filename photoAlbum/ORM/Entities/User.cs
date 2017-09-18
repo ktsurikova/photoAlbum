@@ -37,11 +37,7 @@ namespace ORM.Entities
 
         [BsonIgnoreIfNull]
         [BsonElement(elementName: "image")]
-        public string ProfilePhoto { get; set; }
+        public byte[] ProfilePhoto { get; set; }
 
-        public override string ToString()
-        {
-            return $"{Id} {Email} {Login}";
-        }
     }
 }

@@ -25,9 +25,5 @@ namespace ORM.Entities
         [BsonElement(elementName: "author")]
         public Author Author { get; set; }
 
-        public override string ToString()
-        {
-            return $"{Id} {PhotoId} {Posted} {Text} {Author.Id} {Author.Name}";
-        }
     }
 }

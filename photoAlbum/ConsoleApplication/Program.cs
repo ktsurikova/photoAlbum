@@ -23,18 +23,18 @@ namespace ConsoleApplication
         public static void Ma()
         {
 
-            //ModelContext modelContext = ModelContext.Create();
+            ModelContext modelContext = ModelContext.Create();
             ////var filter = Builders<RestaurantDb>.Filter.Eq(r => r.Borough, "Brooklyn");
             ////var restaurants = modelContext.Restaurants.FindSync<RestaurantDb>(filter).ToList();
             ////var restaurant = modelContext.Restaurants.FindSync<RestaurantDb>(filter).FirstOrDefault();
             //// Console.WriteLine(restaurant);
 
-            ////User user = new User();
-            ////user.Id = 1;
-            ////user.Email = "afsdadf";
-            ////user.Password = "sadsasa";
-            ////user.Login = "asdsa";
-            ////modelContext.Users.InsertOne(user);
+            User user = new User();
+            //user.Id = 1;
+            user.Email = "afsdadf";
+            user.Password = "sadsasa";
+            user.Login = "asdsa";
+            modelContext.Users.InsertOne(user);
 
             //Author author = new Author();
             //author.Id = 4;

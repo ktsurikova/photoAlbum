@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using ORM.Entities;
+using System.Configuration;
 
 namespace ORM
 {
@@ -12,45 +13,31 @@ namespace ORM
     {
         private IMongoClient Client { get; set; }
         private IMongoDatabase Database { get; set; }
-        private static ModelContext _modelContext;
+        private static ModelContext modelContext;
 
         private ModelContext() { }
 
         public static ModelContext Create()
         {
-            if (_modelContext == null)
+            if (modelContext == null)
             {
-                _modelContext = new ModelContext();
-                string connectionString = "mongodb://admin:6D9e3m5i4d8@ds135384.mlab.com:35384/photoalbum";
-                _modelContext.Client = new MongoClient(connectionString);
-                _modelContext.Database = _modelContext.Client.GetDatabase("photoalbum");
+                modelContext = new ModelContext();
+
+                string connectionString = ConfigurationManager.
+                    ConnectionStrings["PhotoAlbumConnectionString"].ConnectionString;
+                modelContext.Client = new MongoClient(connectionString);
+
+                modelContext.Database = modelContext.Client.
+                    GetDatabase(ConfigurationManager.AppSettings["PhotoAlbumDatabaseName"]);
             }
-            return _modelContext;
+            return modelContext;
         }
 
-        //public void TestConnection()
-        //{
-        //    var dbsCursor = _modelContext.Client.ListDatabases();
-        //    var dbsList = dbsCursor.ToList();
-        //    foreach (var db in dbsList)
-        //    {
-        //        Console.WriteLine(db);
-        //    }
-        //}
+        public IMongoCollection<User> Users => Database.GetCollection<User>("users");
 
-        public IMongoCollection<User> Users
-        {
-            get { return Database.GetCollection<User>("users"); }
-        }
+        public IMongoCollection<Photo> Photos => Database.GetCollection<Photo>("photos");
 
-        public IMongoCollection<Photo> Photos
-        {
-            get { return Database.GetCollection<Photo>("photos"); }
-        }
+        public IMongoCollection<Comment> Comments => Database.GetCollection<Comment>("comments");
 
-        public IMongoCollection<Comment> Comments
-        {
-            get { return Database.GetCollection<Comment>("comments"); }
-        }
     }
 }

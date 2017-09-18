@@ -43,6 +43,6 @@ namespace ORM.Entities
         public IEnumerable<int> UserLikes { get; set; }
 
         [BsonElement(elementName: "image")]
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
     }
 }

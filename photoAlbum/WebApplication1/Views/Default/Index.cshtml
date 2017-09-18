@@ -1,0 +1,19 @@
+﻿@model List<ORM.Entities.Photo>
+@{
+    ViewBag.Title = "Gallery";
+}
+
+<h2>Gallery</h2>
+<h3>@ViewBag.H</h3>
+@Html.ActionLink("Add a new Picture", "AddPicture")
+
+@foreach (var pictue in Model)
+{
+    <div>
+        @pictue.Id<br />
+        @pictue.NumberOfLikes
+        @pictue.UserLikes
+        @pictue.Name
+        <img src="@string.Format("/Default/ShowPicture/{0}",pictue.Id.ToString())" alt="@pictue.Id" />
+    </div>
+}

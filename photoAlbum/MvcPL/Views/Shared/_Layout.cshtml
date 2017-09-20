@@ -1,0 +1,35 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+</head>
+
+<body>
+    
+<header>
+    <div class="container">
+        <div class ="logo">Photoalbum</div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light without-margin justify-content-between">
+            <div class="navbar-nav mr-auto mt-2 mt-lg-0"></div>
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </nav>
+    </div>
+</header>
+
+<div class="container">
+    @RenderSection("body", required: false)
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@RenderSection("scripts", required: false)
+    
+</body>
+</html>

@@ -20,8 +20,8 @@ namespace DAL.Interface.Repository
         void LikePhoto(int photoId, int userId);
         void DislikePhoto(int photoId, int userId);
         bool CheckIfLiked(int photoId, int userId);
-        void ChangeName(int photoId, string newName);
-        void ChangeDescription(int photoId, string newDescription);
+        //void ChangeName(int photoId, string newName);
+        //void ChangeDescription(int photoId, string newDescription);
         void AddTag(int photoId, string tag);
         void DeleteAllPhotoOfUser(int userId);
     }

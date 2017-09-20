@@ -54,26 +54,26 @@ namespace DAL.Concrete
             modelContext.Users.ReplaceOne(filter, entity.ToOrmUser(), new UpdateOptions() { IsUpsert = true });
         }
 
-        public void ChangeLogin(int userId, string newLogin)
-        {
-            var updateLogin = Builders<User>.Update.Set(p => p.Login, newLogin);
-            modelContext.Users.UpdateOne(p => p.Id == userId, updateLogin,
-                new UpdateOptions() { IsUpsert = true });
-        }
+        //public void ChangeLogin(int userId, string newLogin)
+        //{
+        //    var updateLogin = Builders<User>.Update.Set(p => p.Login, newLogin);
+        //    modelContext.Users.UpdateOne(p => p.Id == userId, updateLogin,
+        //        new UpdateOptions() { IsUpsert = true });
+        //}
 
-        public void ChangeName(int userId, string newName)
-        {
-            var updateName = Builders<User>.Update.Set(p => p.Name, newName);
-            modelContext.Users.UpdateOne(p => p.Id == userId, updateName,
-                new UpdateOptions() { IsUpsert = true });
-        }
+        //public void ChangeName(int userId, string newName)
+        //{
+        //    var updateName = Builders<User>.Update.Set(p => p.Name, newName);
+        //    modelContext.Users.UpdateOne(p => p.Id == userId, updateName,
+        //        new UpdateOptions() { IsUpsert = true });
+        //}
 
-        public void ChangeEmail(int userId, string newEmail)
-        {
-            var updateEmail = Builders<User>.Update.Set(p => p.Email, newEmail);
-            modelContext.Users.UpdateOne(p => p.Id == userId, updateEmail,
-                new UpdateOptions() { IsUpsert = true });
-        }
+        //public void ChangeEmail(int userId, string newEmail)
+        //{
+        //    var updateEmail = Builders<User>.Update.Set(p => p.Email, newEmail);
+        //    modelContext.Users.UpdateOne(p => p.Id == userId, updateEmail,
+        //        new UpdateOptions() { IsUpsert = true });
+        //}
 
         public void ChangePassword(int userId, string newPassword)
         {
@@ -82,12 +82,12 @@ namespace DAL.Concrete
                 new UpdateOptions() { IsUpsert = true });
         }
 
-        public void ChangePhone(int userId, string newPhone)
-        {
-            var updatePhone = Builders<User>.Update.Set(p => p.Phone, newPhone);
-            modelContext.Users.UpdateOne(p => p.Id == userId, updatePhone,
-                new UpdateOptions() { IsUpsert = true });
-        }
+        //public void ChangePhone(int userId, string newPhone)
+        //{
+        //    var updatePhone = Builders<User>.Update.Set(p => p.Phone, newPhone);
+        //    modelContext.Users.UpdateOne(p => p.Id == userId, updatePhone,
+        //        new UpdateOptions() { IsUpsert = true });
+        //}
 
         public void ChangeProfilePhoto(int userId, byte[] newProfilePhoto)
         {

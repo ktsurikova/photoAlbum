@@ -23,5 +23,10 @@ namespace BLL.Services
         {
             return photoRepository.GetAll().Select(p => p.ToBllPhoto());
         }
+
+        public void Add(BllPhoto photo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

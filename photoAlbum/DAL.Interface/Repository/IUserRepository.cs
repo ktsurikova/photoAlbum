@@ -9,11 +9,11 @@ namespace DAL.Interface.Repository
 {
     public interface IUserRepository : IRepository<DalUser>
     {
-        void ChangeLogin(int userId, string newLogin);
-        void ChangeName(int userId, string newName);
-        void ChangeEmail(int userId, string newEmail);
+        //void ChangeLogin(int userId, string newLogin);
+        //void ChangeName(int userId, string newName);
+        //void ChangeEmail(int userId, string newEmail);
         void ChangePassword(int userId, string newPassword);
-        void ChangePhone(int userId, string newPhone);
+        //void ChangePhone(int userId, string newPhone);
         void ChangeProfilePhoto(int userId, byte[] newProfilePhoto);
     }
 }

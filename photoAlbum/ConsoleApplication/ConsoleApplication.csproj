@@ -67,9 +67,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ORM\ORM.csproj">
-      <Project>{8204DDD7-32E1-4608-A4A3-0B603C56D869}</Project>
-      <Name>ORM</Name>
+    <ProjectReference Include="..\DAL.Interface\DAL.Interface.csproj">
+      <Project>{719E8DAE-A5C4-474A-BCAD-264CC321A28C}</Project>
+      <Name>DAL.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{EE87CA81-024C-49BB-85D5-58A02F671679}</Project>
+      <Name>DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

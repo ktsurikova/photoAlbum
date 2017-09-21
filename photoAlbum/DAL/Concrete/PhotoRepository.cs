@@ -161,5 +161,21 @@ namespace DAL.Concrete
         {
             modelContext.Photos.DeleteMany(p => p.UserId == userId);
         }
+
+        public IEnumerable<string> FindTag(string tag)
+        {
+            var s = modelContext.Photos.Find(p => p.Tags.Any(t => t.StartsWith(tag))).Limit(20).ToList()
+                .Select(p => p.Tags);
+            List<string> list = new List<string>();
+            foreach (var arr in s)
+            {
+                foreach (var str in arr)
+                {
+                    if (str.StartsWith(tag)&&(!list.Contains(str)))
+                        list.Add(str);
+                }
+            }
+            return list;
+        }
     }
 }

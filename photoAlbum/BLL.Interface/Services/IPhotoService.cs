@@ -9,6 +9,9 @@ namespace BLL.Interface.Services
 {
     public interface IPhotoService
     {
-        void Add(BllPhoto photo);
+        void Add (BllPhoto photo);
+        IEnumerable<string> FindTags(string tag);
+        IEnumerable<BllPhoto> GetByTag(string tag, int skip, int take);
+        BllPhoto GetById(int id);
     }
 }

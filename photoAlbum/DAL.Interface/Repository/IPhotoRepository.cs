@@ -24,5 +24,7 @@ namespace DAL.Interface.Repository
         //void ChangeDescription(int photoId, string newDescription);
         void AddTag(int photoId, string tag);
         void DeleteAllPhotoOfUser(int userId);
+
+        IEnumerable<string> FindTag(string tag);
     }
 }

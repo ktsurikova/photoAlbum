@@ -1,0 +1,27 @@
+﻿@using MvcPL.Models
+@model IEnumerable<PhotoViewModel>
+
+@{
+    ViewBag.Title = "Search";
+}
+@section body{
+    @if (!Model.Any())
+    {
+        <div class="emptySearch">Sorry, there are no results for your search</div>
+    }
+    else
+
+       
+
+    {
+        foreach (var p in Model)
+        {
+            <div id="image" class="col-lg-4 col-md-6">
+            @*<a data-fancybox data-type="ajax" data-src="@Url.Action("PhotoDetails", new {p.Id})" href="javascript:;">*@
+                <a href="@Url.Action("ShowImage", new {p.Id})" data-fancybox="images">
+                    <img src="@Url.Action("ShowImage", new {p.Id})" height="350px" width="auto" />
+                </a>
+            </div>
+        }
+    }
+}

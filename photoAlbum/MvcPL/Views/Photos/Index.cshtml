@@ -7,3 +7,16 @@
     @*<h2>Index</h2>*@
 }
 
+@*<script type="text/javascript">
+    $(function () {
+        var autocompleteUrl = '@Url.Action("Find", "Photos")';
+        $("#tags").autocomplete({
+            source: autocompleteUrl,
+            minLength: 1,
+            select: function (event, ui) {
+                alert("Selected " + ui.item.label);
+            }
+        });
+    });
+</script>*@
+

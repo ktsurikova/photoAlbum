@@ -15,6 +15,38 @@
     margin-right: 5px;
     padding-right: 5px;
 }
-.without-margin {
-    margin: 0px;
+.ui-helper-hidden-accessible { display:none; }
+.ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
+/* IE 6 doesn't support max-height
+   * we use height instead, but this forces the menu to always be this tall
+   */
+* html .ui-autocomplete {
+    height: 100px;
+}
+
+.images {
+    margin: auto;
+    margin-top: 50px;
+}
+.emptySearch {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+    color: dimgrey;
+}
+#image {
+    float: left;
+    padding-bottom: 30px;
+    text-align: center;
+    opacity: 1;
+}
+
+#image:hover {
+    opacity:0.7;
 }

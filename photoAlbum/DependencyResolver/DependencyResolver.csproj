@@ -33,7 +33,8 @@
     <Reference Include="BLL">
       <HintPath>..\BLL\bin\Debug\BLL.dll</HintPath>
     </Reference>
-    <Reference Include="BLL.Interface">
+    <Reference Include="BLL.Interface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\BLL.Interface\bin\Debug\BLL.Interface.dll</HintPath>
     </Reference>
     <Reference Include="DAL">

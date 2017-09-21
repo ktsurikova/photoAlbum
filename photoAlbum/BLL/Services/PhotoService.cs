@@ -28,5 +28,20 @@ namespace BLL.Services
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<string> FindTags(string tag)
+        {
+            return photoRepository.FindTag(tag);
+        }
+
+        public IEnumerable<BllPhoto> GetByTag(string tag, int skip, int take)
+        {
+            return photoRepository.GetByTag(tag, skip, take).Select(p => p.ToBllPhoto());
+        }
+
+        public BllPhoto GetById(int id)
+        {
+            return photoRepository.GetById(id).ToBllPhoto();
+        }
     }
 }

@@ -62,6 +62,17 @@ namespace DAL.Concrete
                 .Select(p => p.ToDalPhoto());
         }
 
+        public int CountByTag(string tag)
+        {
+            var filter = Builders<Photo>.Filter.AnyEq(p => p.Tags, tag);
+            return (int)modelContext.Photos.Find(filter).Count();
+        }
+
+        public int CountAll()
+        {
+            return (int)modelContext.Photos.Find(t => true).Count();
+        }
+
         public IEnumerable<DalPhoto> GetByName(string name, int skip = 0, int take = 10)
         {
             return modelContext.Photos
@@ -171,7 +182,7 @@ namespace DAL.Concrete
             {
                 foreach (var str in arr)
                 {
-                    if (str.StartsWith(tag)&&(!list.Contains(str)))
+                    if (str.StartsWith(tag) && (!list.Contains(str)))
                         list.Add(str);
                 }
             }

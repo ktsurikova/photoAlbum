@@ -14,31 +14,31 @@ namespace MvcPL.Infrastructure
             return new PhotoViewModel()
             {
                 Id = photo.Id,
-                Name = photo.Name,
-                Description = photo.Description,
+                //Name = photo.Name,
+                //Description = photo.Description,
                 Image = photo.Image,
-                NumberOfLikes = photo.NumberOfLikes,
-                Tags = photo.Tags,
-                UploadDate = photo.UploadDate,
-                UserId = photo.UserId,
-                UserLikes = photo.UserLikes
+                //NumberOfLikes = photo.NumberOfLikes,
+                //Tags = photo.Tags,
+                //UploadDate = photo.UploadDate,
+                //UserId = photo.UserId,
+                //UserLikes = photo.UserLikes
             };
         }
 
-        public static BllPhoto ToBllPhoto(this PhotoViewModel photo)
-        {
-            return new BllPhoto()
-            {
-                Id = photo.Id,
-                Name = photo.Name,
-                Description = photo.Description,
-                Image = photo.Image,
-                NumberOfLikes = photo.NumberOfLikes,
-                Tags = photo.Tags,
-                UploadDate = photo.UploadDate,
-                UserId = photo.UserId,
-                UserLikes = photo.UserLikes
-            };
-        }
+        //public static BllPhoto ToBllPhoto(this PhotoViewModel photo)
+        //{
+        //    return new BllPhoto()
+        //    {
+        //        Id = photo.Id,
+        //        Name = photo.Name,
+        //        Description = photo.Description,
+        //        Image = photo.Image,
+        //        NumberOfLikes = photo.NumberOfLikes,
+        //        Tags = photo.Tags,
+        //        UploadDate = photo.UploadDate,
+        //        UserId = photo.UserId,
+        //        UserLikes = photo.UserLikes
+        //    };
+        //}
     }
 }

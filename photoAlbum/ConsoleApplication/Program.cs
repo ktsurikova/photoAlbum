@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Helpers;
+using BLL.Interface.Entities;
+using BLL.Services;
 using DAL.Concrete;
+using DAL.Interface.DTO;
 using MongoDB.Bson;
 using MongoDB.Driver;
 //using ORM;
@@ -64,11 +69,32 @@ namespace ConsoleApplication
             //rep.AddTag(1, "#summer");
             //rep.AddTag(2, "#summer");
 
-            foreach (var VARIABLE in rep.FindTag("#s"))
+            //foreach (var VARIABLE in rep.FindTag("#s"))
+            //{
+            //    Console.WriteLine(VARIABLE);
+            //}
+
+            //IEnumerable<DalPhoto> p = rep.GetByTag("#", 0, 10);
+            //foreach (var VARIABLE in p)
+            //{
+            //    Console.WriteLine(p);
+            //}
+
+            //PhotoService s = new PhotoService(new PhotoRepository());
+            //IEnumerable<BllPhoto> p = s.GetAll(0, 1);
+            //foreach (var VARIABLE in p)
+            //{
+            //    Console.WriteLine(VARIABLE.Id);
+            //}
+
+            AccountService service= new AccountService(new UserRepository());
+            service.CreateUser(new BllUser()
             {
-                Console.WriteLine(VARIABLE);
-            }
-            
+                Login = "steven_mcrae",
+                Email = "stevenmcrae@gmail.com",
+                Password = Crypto.HashPassword("111111"),
+                Roles = new []{"User"}
+            });
             Console.ReadKey();
         }
     }

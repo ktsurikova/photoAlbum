@@ -21,7 +21,9 @@ namespace DependencyResolver
         private static void Configure(IKernel kernel, bool isWeb)
         {
             kernel.Bind<IPhotoService>().To<PhotoService>();
+            kernel.Bind<IAccountService>().To<AccountService>();
             kernel.Bind<IPhotoRepository>().To<PhotoRepository>();
+            kernel.Bind<IUserRepository>().To<UserRepository>();
             kernel.Bind<ICommentRepository>().To<CommentRepository>();
         }
     }

@@ -82,6 +82,18 @@ namespace DAL.Concrete
                 new UpdateOptions() { IsUpsert = true });
         }
 
+        public DalUser GetUserByLogin(string login)
+        {
+            return modelContext.Users.Find(u => u.Login == login).FirstOrDefault().ToDalUser();
+        }
+
+        public bool CheckIfUserExists(string login)
+        {
+            if (modelContext.Users.Find(u => u.Login == login).FirstOrDefault() == null)
+                return false;
+            return true;
+        }
+
         //public void ChangePhone(int userId, string newPhone)
         //{
         //    var updatePhone = Builders<User>.Update.Set(p => p.Phone, newPhone);

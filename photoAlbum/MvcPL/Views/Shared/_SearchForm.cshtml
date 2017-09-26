@@ -1,0 +1,37 @@
+﻿@using System.Web.Mvc.Ajax
+@*<form class="form-inline">
+        <input class="form-control mr-sm-2" type="text" id="tag" placeholder="Search: #ballet" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>*@
+
+@using (Html.BeginForm("Search", "Photos", FormMethod.Post, new { @class = "form-inline", id = "searchForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.TextBox("tag", "", new { @class = "form-control mr-sm-2", id = "tag", placeholder = "Search: #ballet" });
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+}
+
+@if (Request.IsAuthenticated)
+{
+    <div class="navbar-nav ml-auto mt-2 mt-lg-0" style="margin-right: 40px;">
+        <img src="~/Content/user_green-5121.png" width="45px" height="40px" />
+    </div>
+}
+else
+{
+    <div class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+        @*<button class="btn ml-auto my-2 my-sm-0 signInButton" type="submit">Sign In</button>*@
+
+        <a data-fancybox data-type="ajax" data-src="@Url.Action("Login", "Account")"
+           href="@Url.Action("Login", "Account")" class="btn ml-auto my-2 my-sm-0 signInButton"
+           type="submit">Sign In</a>
+        
+        <a data-fancybox data-type="ajax" data-src="@Url.Action("SingUp", "Account")"
+           href="@Url.Action("SingUp", "Account")" class="btn ml-auto my-2 my-sm-0 signUpButton"
+           type="submit">Sign Up</a>
+
+        @*<button class="btn ml-auto my-2 my-sm-0 signUpButton" type="submit">Sign Up</button>*@
+    </div>
+}
+

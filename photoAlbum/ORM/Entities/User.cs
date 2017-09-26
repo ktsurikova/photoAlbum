@@ -16,7 +16,7 @@ namespace ORM.Entities
         public int Id { get; set; }
 
         [BsonElement(elementName: "role")]
-        public string Role { get; set; }
+        public IEnumerable<string> Roles { get; set; }
 
         [BsonElement(elementName: "login")]
         public string Login { get; set; }

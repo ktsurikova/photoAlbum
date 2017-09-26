@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Interface.DTO
+namespace BLL.Interface.Entities
 {
-    public class DalUser : IEntity
+    public class BllUser
     {
         public int Id { get; set; }
         public IEnumerable<string> Roles { get; set; }

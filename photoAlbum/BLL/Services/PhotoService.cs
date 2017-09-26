@@ -19,9 +19,9 @@ namespace BLL.Services
             photoRepository = repository;
         }
 
-        public IEnumerable<BllPhoto> GetAll()
+        public IEnumerable<BllPhoto> GetAll(int skip, int take)
         {
-            return photoRepository.GetAll().Select(p => p.ToBllPhoto());
+            return photoRepository.GetAll(skip, take).Select(p => p.ToBllPhoto());
         }
 
         public void Add(BllPhoto photo)
@@ -34,8 +34,17 @@ namespace BLL.Services
             return photoRepository.FindTag(tag);
         }
 
+        public int CountByTag(string tag)
+        {
+            if (tag == string.Empty)
+                return photoRepository.CountAll();
+            return photoRepository.CountByTag(tag);
+        }
+
         public IEnumerable<BllPhoto> GetByTag(string tag, int skip, int take)
         {
+            if (tag == string.Empty)
+                return photoRepository.GetAll(skip, take).Select(p => p.ToBllPhoto());
             return photoRepository.GetByTag(tag, skip, take).Select(p => p.ToBllPhoto());
         }
 

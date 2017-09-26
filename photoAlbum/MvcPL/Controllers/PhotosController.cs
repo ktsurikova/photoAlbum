@@ -11,6 +11,8 @@ namespace MvcPL.Controllers
 {
     public class PhotosController : Controller
     {
+        public const int ImagesOnPage = 1;
+
         private readonly IPhotoService photoService;
 
         public PhotosController(IPhotoService photoService)
@@ -18,9 +20,14 @@ namespace MvcPL.Controllers
             this.photoService = photoService;
         }
 
-        public ActionResult Index()
+        //Pagination
+        public ActionResult Index(int page = 1)
         {
-            return View();
+            PhotoPageInfo pageInfo = new PhotoPageInfo { PageNumber = page, PageSize = ImagesOnPage, Tag = string.Empty, 
+                TotalItems = photoService.CountByTag(string.Empty) };
+            IEnumerable<PhotoViewModel> photos = photoService.GetAll(0, ImagesOnPage*page)
+                .Select(p=>p.ToPhotoViewModel());
+            return View(new PaginationViewModel<PhotoViewModel> {PageInfo = pageInfo, Items = photos});
         }
 
         public ActionResult Find(string term)
@@ -37,18 +44,40 @@ namespace MvcPL.Controllers
             {
                 return Json(projection.ToList(), JsonRequestBehavior.AllowGet);
             }
+            //TO DO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             return View("Index");
         }
 
-        public ActionResult Search(string tag)
+        //Pagination
+        //[ValidateAntiForgeryToken]
+        public ActionResult Search(string tag = "", int page = 1)
         {
-            IEnumerable<PhotoViewModel> photos = photoService.GetByTag(tag, 0, 12)
-                .Select(p => p.ToPhotoViewModel());
+            PhotoPageInfo pageInfo = new PhotoPageInfo
+            {
+                PageNumber = page,
+                PageSize = ImagesOnPage,
+                Tag = tag,
+                TotalItems = photoService.CountByTag(tag)
+            };
+
             if (Request.IsAjaxRequest())
             {
-                return Json(photos.ToList(), JsonRequestBehavior.AllowGet);
+                IEnumerable<PhotoViewModel> photos = photoService.GetByTag(tag, pageInfo.Skip, pageInfo.PageSize)
+                    .Select(p => p.ToPhotoViewModel());
+
+                PaginationViewModel<PhotoViewModel> pagedPhotos =
+                    new PaginationViewModel<PhotoViewModel> { PageInfo = pageInfo, Items = photos };
+
+                return Json(pagedPhotos, JsonRequestBehavior.AllowGet);
             }
-            return View("Search", photos);
+
+            IEnumerable<PhotoViewModel> photos2 = photoService.GetByTag(tag, 0, ImagesOnPage*page)
+                .Select(p => p.ToPhotoViewModel());
+
+            PaginationViewModel<PhotoViewModel> pagedPhotos2 =
+                new PaginationViewModel<PhotoViewModel> {PageInfo = pageInfo, Items = photos2};
+
+            return View("Index", pagedPhotos2);
         }
 
         public ActionResult ShowImage(int id)

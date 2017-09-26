@@ -22,7 +22,7 @@ namespace DAL
                 Password = user.Password,
                 Phone = user.Phone,
                 ProfilePhoto = user.ProfilePhoto,
-                Role = user.Role
+                Roles = user.Roles
             };
         }
 
@@ -37,7 +37,7 @@ namespace DAL
                 Password = user.Password,
                 Phone = user.Phone,
                 ProfilePhoto = user.ProfilePhoto,
-                Role = user.Role
+                Roles = user.Roles
             };
         }
         #endregion

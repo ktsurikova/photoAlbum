@@ -11,6 +11,8 @@ namespace DAL.Interface.Repository
     {
         IEnumerable<DalPhoto> GetAll(int skip = 0, int take = 10);
         IEnumerable<DalPhoto> GetByTag(string tag, int skip = 0, int take = 10);
+        int CountByTag(string tag);
+        int CountAll();
         IEnumerable<DalPhoto> GetByName(string name, int skip = 0, int take = 10);
         IEnumerable<DalPhoto> GetByUploadDate(DateTime dateTime, int skip = 0, int take = 10);
         IEnumerable<DalPhoto> GetByUserId(int userId, int skip = 0, int take = 10);

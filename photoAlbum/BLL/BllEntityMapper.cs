@@ -11,6 +11,39 @@ namespace BLL
     public static class BllEntityMapper
     {
 
+        #region User
+        public static DalUser ToDalUser(this BllUser user)
+        {
+            return new DalUser()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Login = user.Login,
+                Name = user.Name,
+                Password = user.Password,
+                Phone = user.Phone,
+                ProfilePhoto = user.ProfilePhoto,
+                Roles = user.Roles
+            };
+        }
+
+        public static BllUser ToBllUser(this DalUser user)
+        {
+            return new BllUser()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Login = user.Login,
+                Name = user.Name,
+                Password = user.Password,
+                Phone = user.Phone,
+                ProfilePhoto = user.ProfilePhoto,
+                Roles = user.Roles
+            };
+        }
+        #endregion
+
+
         #region Photo
         public static BllPhoto ToBllPhoto(this DalPhoto photo)
         {

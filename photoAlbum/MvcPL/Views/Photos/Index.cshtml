@@ -1,22 +1,28 @@
-﻿
+﻿@using MvcPL.Models
+@model PaginationViewModel<PhotoViewModel>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@section body{
-    @*<h2>Index</h2>*@
+    bool emptySearch = Model.PageInfo.TotalItems == 0 || (!Model.Items.Any());
 }
 
-@*<script type="text/javascript">
-    $(function () {
-        var autocompleteUrl = '@Url.Action("Find", "Photos")';
-        $("#tags").autocomplete({
-            source: autocompleteUrl,
-            minLength: 1,
-            select: function (event, ui) {
-                alert("Selected " + ui.item.label);
-            }
-        });
-    });
-</script>*@
+@section body
+{
+    @if (emptySearch)
+    {
+        <div class="emptySearch">Sorry, there are no results for your search</div>
+    }
+    else
+    {
+        @Html.Partial("_FoundImages", Model)
+    }
+}
 
+@section loadMore
+{
+    @if (!emptySearch)
+    {
+        @Html.Partial("_LoadMore", Model)
+    }
+}

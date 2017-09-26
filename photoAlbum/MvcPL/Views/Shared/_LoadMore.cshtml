@@ -1,0 +1,31 @@
+﻿@using MvcPL.Models
+@model PaginationViewModel<PhotoViewModel>
+
+@if (Model.PageInfo.TotalPages != Model.PageInfo.PageNumber)
+{
+    //string tag = ((PhotoPageInfo)Model.PageInfo).Tag;
+    //int page = Model.PageInfo.PageNumber + 1;
+
+    @*<a href="#" class="btn btn-outline-success my-2 my-sm-0" onclick="getPagedData('@tag', '@page')">Load more</a>
+    @Html.RouteLink("Load more", new
+       {
+           controller = "Photos",
+           action = "Search",
+           tag = ((PhotoPageInfo)Model.PageInfo).Tag,
+           page = Model.PageInfo.PageNumber + 1
+       }, new
+       {
+           @class = "btn btn-outline-success my-2 my-sm-0",
+           onclick = "GetPageData(" + ((PhotoPageInfo)Model.PageInfo).Tag + ", "(+Model.PageInfo.PageNumber + 1) + ")"
+       });*@
+
+    using (Html.BeginForm("Search", "Photos", new
+    {
+        tag = ((PhotoPageInfo)Model.PageInfo).Tag,
+        page = Model.PageInfo.PageNumber + 1
+    }, FormMethod.Post, new { @class = "", id = "loadMoreForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <button class="btn my-2 my-sm-0" id="buttonLoadMore" type="submit">Load more</button>
+    }
+}

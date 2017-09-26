@@ -1,0 +1,20 @@
+﻿@model MvcPL.Models.SignInViewModel
+
+@{
+    ViewBag.Title = "SignIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section SearchForm
+{
+    <div class="navbar-nav ml-auto mt-2 mt-lg-0" style="margin-right: 40px; height: 38px">
+    </div>
+}
+
+@section body{
+    <div class="signUpContainer">
+        @Html.Partial("_SignIn", Model)
+    </div>
+}
+

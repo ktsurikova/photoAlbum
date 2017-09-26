@@ -20,26 +20,56 @@ namespace MvcPL.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login(string returnUrl, bool? fancybox)
+        public ActionResult SignIn(string returnUrl, bool? fancybox)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return PartialView("_SignIn");
-        }
-
-        [HttpGet]
-        public ActionResult SingUp(string returnUrl, bool? fancybox)
-        {
-            return PartialView("_SingUp");
+            if (fancybox == true)
+                return PartialView("_SignIn");
+            return View("SignIn");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SingUp(SingUpViewModel model)
+        public ActionResult SignIn(SignInViewModel viewModel, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                if (Membership.ValidateUser(viewModel.Login, viewModel.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(viewModel.Login, false);
+                    if (Url.IsLocalUrl(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index","Photos");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Incorrect login or password.");
+                }
+            }
+            return View("SignIn", viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult SignUp(string returnUrl, bool? fancybox)
+        {
+            if (fancybox == true)
+                return PartialView("_SignUp");
+            return View("SignUp");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SignUp(SignUpViewModel model)
         {
             if (accountService.CheckIfUserExists(model.Login))
             {
                 ModelState.AddModelError("", "User with this login already registered.");
-                return PartialView("_SingUp", model);
+                return View("SignUp", model);
             }
 
             if (ModelState.IsValid)
@@ -57,13 +87,20 @@ namespace MvcPL.Controllers
                     ModelState.AddModelError("", "Error registration.");
                 }
             }
-            return PartialView("_SingUp", model);
+            return View("SignUp", model);
         }
 
-        public ActionResult ValidateLogin(string login)
+        public ActionResult ValidateSignUp(string login)
         {
             if (accountService.CheckIfUserExists(login))
                 return Json("login is already taken", JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ValidateSignIn(string login)
+        {
+            if (!accountService.CheckIfUserExists(login))
+                return Json("there's no users with such login", JsonRequestBehavior.AllowGet);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
     }

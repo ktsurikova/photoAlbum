@@ -7,22 +7,51 @@
     bool emptySearch = Model.PageInfo.TotalItems == 0 || (!Model.Items.Any());
 }
 
-@section body
+@section SearchForm
 {
-    @if (emptySearch)
-    {
-        <div class="emptySearch">Sorry, there are no results for your search</div>
-    }
-    else
-    {
-        @Html.Partial("_FoundImages", Model)
-    }
+    @Html.Partial("_SearchForm")
 }
 
-@section loadMore
-{
-    @if (!emptySearch)
-    {
-        @Html.Partial("_LoadMore", Model)
-    }
+@section body{
+    <div class="container container-body">
+        <div class="images" id="images">
+            @*@RenderSection("body", required: false)*@
+            @if (emptySearch)
+            {
+                <div class="emptySearch">Sorry, there are no results for your search</div>
+            }
+            else
+            {
+                @Html.Partial("_FoundImages", Model)
+            }
+        </div>
+        <div id="loadMore" class="loadMore">
+            @*@RenderSection("loadMore", required: false)*@
+            @if (!emptySearch)
+            {
+                @Html.Partial("_LoadMore", Model)
+            }
+        </div>
+    </div>
 }
+
+
+@*@section body
+    {
+        @if (emptySearch)
+        {
+            <div class="emptySearch">Sorry, there are no results for your search</div>
+        }
+        else
+        {
+            @Html.Partial("_FoundImages", Model)
+        }
+    }
+
+    @section loadMore
+    {
+        @if (!emptySearch)
+        {
+            @Html.Partial("_LoadMore", Model)
+        }
+    }*@

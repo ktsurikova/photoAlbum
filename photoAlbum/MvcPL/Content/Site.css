@@ -112,6 +112,19 @@
     background-color: #28a745;
     color:white
 }
+
+.signInButtonForm {
+    margin-top: 30px;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    -webkit-appearance: none !important;
+    background-color: #28a745;
+    color: white;
+}
+.signInButtonForm:hover {
+    background-color: #1e7e34 !important;
+    color: white !important;
+}
 .fancybox-close-small {
     /*background-color: #2dcb74 !important;
     border-color: #2dcb74 !important;
@@ -128,6 +141,17 @@
     width: 350px;
 }
 
+.loginForm {
+    padding: 24px;
+    width: 330px;
+}
 .center {
     text-align: center;
+}
+.signUpContainer {
+    margin: auto;
+    width: 350px;
+    margin-top: 60px;
+    border: 5px solid #f8f9fa;
+    border-radius: 10px; 
 }

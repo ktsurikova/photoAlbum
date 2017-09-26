@@ -1,0 +1,24 @@
+﻿@using System.Web.Optimization
+@model MvcPL.Models.SignUpViewModel
+@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section SearchForm
+{
+    <div class="navbar-nav ml-auto mt-2 mt-lg-0" style="margin-right: 40px; height: 38px">
+    </div>
+}
+
+@section body{
+    <div class="signUpContainer">
+        @Html.Partial("_SignUp", Model)
+    </div>
+}
+
+
+@*@section scripts
+    {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@

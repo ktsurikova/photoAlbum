@@ -7,12 +7,12 @@ using System.Web.Mvc;
 
 namespace MvcPL.Models
 {
-    public class SingUpViewModel
+    public class SignUpViewModel
     {
         [Display(Name = "Login")]
         [Required(ErrorMessage = "login can't be blank")]
         [StringLength(25, MinimumLength = 3, ErrorMessage = "The login must contain at least {2} characters")]
-        [Remote("ValidateLogin", "Account")]
+        [Remote("ValidateSignUp", "Account")]
         public string Login { get; set; }
 
         [Display(Name = "Email")]

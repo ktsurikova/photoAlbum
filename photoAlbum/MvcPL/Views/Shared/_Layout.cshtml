@@ -18,22 +18,25 @@
         <div class="container">
             <div class="logo">Photoalbum</div>
             <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
-                @Html.Partial("_SearchForm")
+                @RenderSection("SearchForm", required: false)
             </nav>
         </div>
     </header>
 
-    <div class="container container-body">
-        <div class="images" id="images">
-            @RenderSection("body", required: false)
-        </div>
-        <div id="loadMore" class="loadMore">
-            @RenderSection("loadMore", required: false)
-        </div>
-    </div>
+    @RenderSection("body", required: false)
+
+    @*<div class="container container-body">
+            <div class="images" id="images">
+                @RenderSection("body", required: false)
+            </div>
+            <div id="loadMore" class="loadMore">
+                @RenderSection("loadMore", required: false)
+            </div>
+        </div>*@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/search")
+    @*@Scripts.Render("~/bundles/jqueryval")*@
     @RenderSection("scripts", required: false)
 
 </body>

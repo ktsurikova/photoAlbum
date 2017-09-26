@@ -1,8 +1,8 @@
 ﻿@using System.Web.Optimization
-@model MvcPL.Models.SingUpViewModel
+@model MvcPL.Models.SignUpViewModel
 
 <div class="registerForm">
-    @using (Html.BeginForm("SingUp", "Account", FormMethod.Post,
+    @using (Html.BeginForm("SignUp", "Account", FormMethod.Post,
                         new { }))
     {
         @Html.AntiForgeryToken()
@@ -43,6 +43,6 @@
     }
 </div>
 
-
+@Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
 

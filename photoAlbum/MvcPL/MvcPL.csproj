@@ -236,7 +236,7 @@
     <Compile Include="Models\PhotoPageInfo.cs" />
     <Compile Include="Models\PhotoViewModel.cs" />
     <Compile Include="Models\SignInViewModel.cs" />
-    <Compile Include="Models\SingUpViewModel.cs" />
+    <Compile Include="Models\SignUpViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\CustomMembershipProvider.cs" />
     <Compile Include="Providers\CustomRoleProvider.cs" />
@@ -257,7 +257,9 @@
     <Content Include="Views\Shared\_FoundImages.cshtml" />
     <Content Include="Views\Shared\_LoadMore.cshtml" />
     <Content Include="Views\Account\_SignIn.cshtml" />
-    <Content Include="Views\Account\_SingUp.cshtml" />
+    <Content Include="Views\Account\_SignUp.cshtml" />
+    <Content Include="Views\Account\SignUp.cshtml" />
+    <Content Include="Views\Account\SignIn.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

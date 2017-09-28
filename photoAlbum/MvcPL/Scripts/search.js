@@ -46,7 +46,8 @@ function DisplayImages(data) {
                 var link = $('<a />',
                     {
                         'href': '/Photos/ShowImage/' + value.Id,
-                        'data-fancybox': 'images'
+                        'data-fancybox': 'images',
+                        'data-type': 'image',
                     });
                 link.append(
                     $('<img />').attr({

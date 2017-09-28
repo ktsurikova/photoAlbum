@@ -8,13 +8,40 @@
 
 @section SearchForm
 {
-    <div class="navbar-nav ml-auto mt-2 mt-lg-0" style="margin-right: 40px; height: 38px">
+    <div class="navbar-nav ml-auto mt-2 mt-lg-0">
+        @if (Request.IsAuthenticated)
+        {
+            @Html.Partial("_Profile_SignOut")
+        }
+        else
+        {
+            <a data-fancybox data-type="ajax" data-src="@Url.Action("SignUp", "Account")"
+               href="@Url.Action("SignUp", "Account")" class="btn ml-auto my-2 my-sm-0 signInButton"
+               type="submit">Sign Up</a>
+
+            <a href="@Url.Action("Index", "Photos")" class="btn ml-auto my-2 my-sm-0 signUpButton"
+               type="submit">Home</a>
+        }
     </div>
 }
 
 @section body{
-    <div class="signUpContainer">
-        @Html.Partial("_SignIn", Model)
-    </div>
+    @if (Request.IsAuthenticated)
+    {
+        <div class="container" style="margin-top: 60px">
+            <div class="emptySearch">
+                You are already logged in   
+                <a href="@Url.Action("Index", "Photos")" class="btn ml-auto my-2 my-sm-0 signUpButton"
+                   type="submit">Home</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="signUpContainer">
+            @Html.Partial("_SignIn", Model)
+        </div>
+    }
+
 }
 

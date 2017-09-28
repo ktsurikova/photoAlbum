@@ -29,7 +29,7 @@ namespace MvcPL.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult SignIn(SignInViewModel viewModel, string returnUrl)
         {
             if (ModelState.IsValid)
@@ -42,13 +42,21 @@ namespace MvcPL.Controllers
                         return Redirect(returnUrl);
                     }
                     else
-                    {
-                        return RedirectToAction("Index","Photos");
+                    {   
+                        return RedirectToAction("Index", "Photos");
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Incorrect login or password.");
+                    //if (Request.IsAjaxRequest())
+                    //{
+                    //    return Json("Incorrect login or password", JsonRequestBehavior.AllowGet);
+                    //}
+                    //else
+                    //{
+                        ModelState.AddModelError("", "Incorrect login or password.");
+                    //}
+                    
                 }
             }
             return View("SignIn", viewModel);
@@ -102,6 +110,13 @@ namespace MvcPL.Controllers
             if (!accountService.CheckIfUserExists(login))
                 return Json("there's no users with such login", JsonRequestBehavior.AllowGet);
             return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        public ActionResult SignOut()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Photos");
         }
     }
 }

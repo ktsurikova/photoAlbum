@@ -155,3 +155,46 @@
     border: 5px solid #f8f9fa;
     border-radius: 10px; 
 }
+.container-profile {
+    margin-top: 50px;
+    width: 1000px !important;
+    overflow: hidden;
+}
+.profilePhoto {
+    float: left;
+}
+.personalInfo {
+    padding-top: 50px;
+    float: left;
+    color: #696969;
+    font-family: Arial;
+}
+.profileButtons {
+    float: right;
+}
+.editProfile {
+    margin-top: 35px;
+}
+
+.uploadPhoto {
+    margin-top: 10px;
+}
+.loginProfile {
+    font-size: 30px;
+}
+#ImageFile {
+    display: none;
+}
+.container-photo {
+    margin-top: 50px;
+    overflow: hidden;
+    width: 900px !important;
+    text-align: center;
+}
+.uploadLabel {
+    text-align: left !important;
+    padding-left: 0px !important;
+}
+.uploadField {
+    float: right;
+}

@@ -15,5 +15,7 @@ namespace BLL.Interface.Services
         IEnumerable<BllPhoto> GetByTag(string tag, int skip, int take);
         IEnumerable<BllPhoto> GetAll(int skip, int take);
         BllPhoto GetById(int id);
+        IEnumerable<BllPhoto> GetByUserId(int userId, int skip, int take);
+        int CountByUserId(int id);
     }
 }

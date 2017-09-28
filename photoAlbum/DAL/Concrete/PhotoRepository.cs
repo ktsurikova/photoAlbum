@@ -68,6 +68,11 @@ namespace DAL.Concrete
             return (int)modelContext.Photos.Find(filter).Count();
         }
 
+        public int CountByUserId(int userId)
+        {
+            return (int)modelContext.Photos.Find(t => t.UserId == userId).Count();
+        }
+
         public int CountAll()
         {
             return (int)modelContext.Photos.Find(t => true).Count();

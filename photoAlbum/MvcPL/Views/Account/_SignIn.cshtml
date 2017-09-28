@@ -2,15 +2,24 @@
 @model MvcPL.Models.SignInViewModel
 
 <div class="loginForm">
-    @using (Html.BeginForm("SignIn", "Account", FormMethod.Post,
-        new { }))
+
+    @*@using (Ajax.BeginForm("SignIn", "Account", new { returnUrl = ViewBag.ReturnUrl }, new AjaxOptions()
+    {
+        Url = "/Account/SignIn",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "validation"
+
+    }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div id ="validation" class = "text-danger">
+            
+        </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.Login, new { @class = "" })
+            @Html.LabelFor(m => m.Login, new { @class = "", id = "loginLabel" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Login, new { @class = "form-control", placeholder="Login" })
+                @Html.TextBoxFor(m => m.Login, new { @class = "form-control", placeholder = "Login" })
                 @Html.ValidationMessageFor(m => m.Login, null, new { @class = "text-danger" })
             </div>
         </div>
@@ -23,11 +32,70 @@
         </div>
         <div class="form-group center">
             <div class="center">
-                <input type="submit" class="btn btn-default signInButtonForm" value="Sign In" />
+                <input type="submit" id="signInButtonForm" class="btn btn-default signInButtonForm" value="Sign In" />
+            </div>
+        </div>
+    }*@
+
+    @using (Html.BeginForm("SignIn", "Account", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
+            new { id = "SignInForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.Login, new { @class = "", id = "loginLabel" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Login, new { @class = "form-control", placeholder = "Login" })
+                @Html.ValidationMessageFor(m => m.Login, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group center">
+            <div class="center">
+                <input type="submit" id="signInButtonForm" class="btn btn-default signInButtonForm" value="Sign In" />
             </div>
         </div>
     }
 </div>
 
-@Scripts.Render("~/bundles/jquery")
+
+
+@*<script type="text/javascript">
+
+            $('#signInButtonForm').submit(function(event) {
+                event.preventDefault;
+                var url = '/Account/SignIn';
+                @*if (@string.IsNullOrEmpty(ViewBag.ReturnUrl)) {
+                 retUrl = null
+             } else {
+                 retUrl = @ViewBag.ReturnUrl;
+            }
+                if (string.IsNullOrEmpty(ViewBag.ReturnUrl))
+            {
+                retUrl =
+        }
+                var data = {
+                    viewModel: {
+                        Login: $('#Login').val(),
+                        Password: $('#Password').val()
+                    }
+                };
+                console.log(@Request.IsAjaxRequest());
+                $.post(url,
+                    data,
+                    function(response) {
+                        console.log(response);
+                    });
+            });
+
+
+    </script>*@
+
+@Scripts.Render("~/bundles/jqueryOnly")
 @Scripts.Render("~/bundles/jqueryval")

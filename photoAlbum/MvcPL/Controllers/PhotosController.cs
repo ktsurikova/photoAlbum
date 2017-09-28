@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -80,6 +81,7 @@ namespace MvcPL.Controllers
             return View("Index", pagedPhotos2);
         }
 
+
         public ActionResult ShowImage(int id)
         {
             return File(photoService.GetById(id).Image, "image/jpeg");
@@ -89,5 +91,6 @@ namespace MvcPL.Controllers
         {
             return View("PhotoDetails", photoService.GetById(id).ToPhotoViewModel());
         }
+
     }
 }

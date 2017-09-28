@@ -26,7 +26,7 @@ namespace BLL.Services
 
         public void Add(BllPhoto photo)
         {
-            throw new NotImplementedException();
+            photoRepository.Insert(photo.ToDalPhoto());
         }
 
         public IEnumerable<string> FindTags(string tag)
@@ -51,6 +51,16 @@ namespace BLL.Services
         public BllPhoto GetById(int id)
         {
             return photoRepository.GetById(id).ToBllPhoto();
+        }
+
+        public IEnumerable<BllPhoto> GetByUserId(int userId, int skip, int take)
+        {
+            return photoRepository.GetByUserId(userId, skip, take).Select(p => p.ToBllPhoto());
+        }
+
+        public int CountByUserId(int id)
+        {
+            return photoRepository.CountByUserId(id);
         }
     }
 }

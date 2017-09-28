@@ -13,9 +13,7 @@
 
 @if (Request.IsAuthenticated)
 {
-    <div class="navbar-nav ml-auto mt-2 mt-lg-0" style="margin-right: 40px;">
-        <img src="~/Content/user_green-5121.png" width="45px" height="40px" />
-    </div>
+    @Html.Partial("_Profile_SignOut")
 }
 else
 {
@@ -26,7 +24,7 @@ else
         <a data-fancybox data-type="ajax" data-src="@Url.Action("SignIn", "Account")"
            href="@Url.Action("SignIn", "Account")" class="btn ml-auto my-2 my-sm-0 signInButton"
            type="submit">Sign In</a>
-        
+
         <a data-fancybox data-type="ajax" data-src="@Url.Action("SignUp", "Account")"
            href="@Url.Action("SignUp", "Account")" class="btn ml-auto my-2 my-sm-0 signUpButton"
            type="submit">Sign Up</a>

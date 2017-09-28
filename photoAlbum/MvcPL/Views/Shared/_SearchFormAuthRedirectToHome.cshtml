@@ -1,0 +1,25 @@
+﻿@using System.Web.Mvc.Ajax
+@*<form class="form-inline">
+        <input class="form-control mr-sm-2" type="text" id="tag" placeholder="Search: #ballet" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>*@
+
+@using (Html.BeginForm("Search", "Photos", FormMethod.Post, new { @class = "form-inline" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.TextBox("tag", "", new { @class = "form-control mr-sm-2", placeholder = "Search: #ballet" });
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+}
+
+
+    <div class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+        <a href="@Url.Action("Index", "Photos")">
+            <img src="~/Content/home.png" width="45px" height="40px" />
+        </a>
+        
+        <a href="@Url.Action("SignOut", "Account")">
+            <img src="~/Content/signout.png" style="margin-left: 10px" width="45px" height="40px"/>
+        </a>
+
+    </div>

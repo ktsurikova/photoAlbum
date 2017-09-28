@@ -87,14 +87,23 @@ namespace ConsoleApplication
             //    Console.WriteLine(VARIABLE.Id);
             //}
 
-            AccountService service= new AccountService(new UserRepository());
-            service.CreateUser(new BllUser()
-            {
-                Login = "steven_mcrae",
-                Email = "stevenmcrae@gmail.com",
-                Password = Crypto.HashPassword("111111"),
-                Roles = new []{"User"}
-            });
+            //AccountService service= new AccountService(new UserRepository());
+            //service.CreateUser(new BllUser()
+            //{
+            //    Login = "steven_mcrae",
+            //    Email = "stevenmcrae@gmail.com",
+            //    Password = Crypto.HashPassword("111111"),
+            //    Roles = new []{"User"}
+            //});
+
+            DalPhoto p = rep.GetById(1);
+            p.UserId = 1;
+            rep.Update(p);
+            p = rep.GetById(2);
+            p.UserId = 1;
+            rep.Update(p);
+
+
             Console.ReadKey();
         }
     }

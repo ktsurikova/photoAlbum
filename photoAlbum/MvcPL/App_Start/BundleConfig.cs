@@ -15,7 +15,14 @@ namespace MvcPL.App_Start
                 "~/Scripts/jquery-ui-{version}.js").Include("~/Scripts/jquery.fancybox.js")
                 .Include("~/Scripts/jquery.unobtrusive-ajax.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqueryOnly").Include(
+                    "~/Scripts/jquery-{version}.js").Include(
+                    "~/Scripts/jquery-ui-{version}.js")
+                .Include("~/Scripts/jquery.unobtrusive-ajax.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/search").Include("~/Scripts/search.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/uploadImage").Include("~/Scripts/uploadImage.js"));
 
             //bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
             //    "~/Scripts/jquery-ui-{version}.js"));

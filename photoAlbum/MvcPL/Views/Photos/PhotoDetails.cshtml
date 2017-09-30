@@ -1,8 +1,16 @@
-﻿@model MvcPL.Models.PhotoViewModel
+﻿@model MvcPL.Models.PhotoDetailsViewModel
 
 @{
     ViewBag.Title = "PhotoDetails";
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section SearchForm
+{
+    @Html.Partial("_SearchFormAuthRedirectToHome")
+}
+
+@section body{
+    
+}
 

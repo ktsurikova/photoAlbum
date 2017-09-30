@@ -59,7 +59,6 @@ namespace MvcPL.Providers
             if (!AccountService.CheckIfUserExists(username))
                 return false;
             var user = AccountService.GetUserByLogin(username);
-            bool c = Crypto.VerifyHashedPassword(user.Password, password);
             return user != null && Crypto.VerifyHashedPassword(user.Password, password);
         }
 

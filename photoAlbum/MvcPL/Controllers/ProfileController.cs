@@ -29,11 +29,15 @@ namespace MvcPL.Controllers
 
             int userId = accountService.GetUserByLogin(User.Identity.Name).Id;
 
-             PageInfo pageInfo = new PageInfo { PageNumber = 1, PageSize = ImagesOnPage, 
-                TotalItems = photoService.CountByUserId(userId) };
-            IEnumerable<PhotoViewModel> photos = photoService.GetByUserId(userId, 0, ImagesOnPage*1)
-                .Select(p=>p.ToPhotoViewModel());
-            ViewBag.Photos = new PaginationViewModel<PhotoViewModel> {PageInfo = pageInfo, Items = photos};
+            PageInfo pageInfo = new PageInfo
+            {
+                PageNumber = 1,
+                PageSize = ImagesOnPage,
+                TotalItems = photoService.CountByUserId(userId)
+            };
+            IEnumerable<PhotoViewModel> photos = photoService.GetByUserId(userId, 0, ImagesOnPage * 1)
+                .Select(p => p.ToPhotoViewModel());
+            ViewBag.Photos = new PaginationViewModel<PhotoViewModel> { PageInfo = pageInfo, Items = photos };
 
             return View("Index", profileViewModel);
         }
@@ -70,23 +74,43 @@ namespace MvcPL.Controllers
             return new EmptyResult();
         }
 
-        public ActionResult ShowImage(byte[] image)
+        public ActionResult ShowImage()
         {
-            return File(image, "image/jpeg");
+            return File(accountService.GetUserByLogin(User.Identity.Name).ProfilePhoto, "image/jpeg");
         }
 
-        [Authorize]
+        [AllowAnonymous]
+        public ActionResult ShowProfilePhoto(int userId)
+        {
+            return File(accountService.GetUserById(userId).ProfilePhoto, "image/jpeg");
+        }
+
         public ActionResult UploadPhoto()
         {
             return View("UploadPhoto");
         }
 
-        [Authorize]
         [HttpPost]
         public ActionResult UploadPhoto(UploadPhotoViewModel photo)
         {
             photoService.Add(photo.ToBllPhoto(accountService.GetUserByLogin(User.Identity.Name).Id));
             return RedirectToAction("Index", "Profile");
         }
+
+        public ActionResult EditeProfile()
+        {
+            ProfileInfoViewModel profileViewModel = accountService.
+                GetUserByLogin(User.Identity.Name).ToProfileInfoViewModel();
+            return View("EditeProfile", profileViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult EditePtofile(EditProfileViewModel model)
+        {
+            int userId = accountService.GetUserByLogin(User.Identity.Name).Id;
+            accountService.EditeUserPtofile(userId, model.Name, model.ImageFile.ToByteArray());
+            return RedirectToAction("Index", "Profile");
+        }
+
     }
 }

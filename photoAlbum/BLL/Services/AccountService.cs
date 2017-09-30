@@ -23,6 +23,11 @@ namespace BLL.Services
             return userRepository.GetUserByLogin(login).ToBllUser();
         }
 
+        public BllUser GetUserById(int id)
+        {
+            return userRepository.GetById(id).ToBllUser();
+        }
+
         public bool CheckIfUserExists(string login)
         {
             return userRepository.CheckIfUserExists(login);
@@ -31,6 +36,18 @@ namespace BLL.Services
         public void CreateUser(BllUser user)
         {
             userRepository.Insert(user.ToDalUser());
+        }
+
+        public void EditeUserPtofile(int userId, string newName, byte[] newProfile)
+        {
+            if (!string.IsNullOrEmpty(newName))
+            {
+                userRepository.ChangeName(userId, newName);
+            }
+            if (newProfile!=null & newProfile.Length!=0)
+            {
+                userRepository.ChangeProfilePhoto(userId, newProfile);
+            }
         }
     }
 }

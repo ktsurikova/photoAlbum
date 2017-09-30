@@ -13,10 +13,12 @@ namespace BLL.Services
     public class PhotoService : IPhotoService
     {
         private readonly IPhotoRepository photoRepository;
+        private readonly ICommentRepository commentRepository;
 
-        public PhotoService(IPhotoRepository repository)
+        public PhotoService(IPhotoRepository repository, ICommentRepository commentRepository)
         {
             photoRepository = repository;
+            this.commentRepository = commentRepository;
         }
 
         public IEnumerable<BllPhoto> GetAll(int skip, int take)
@@ -61,6 +63,37 @@ namespace BLL.Services
         public int CountByUserId(int id)
         {
             return photoRepository.CountByUserId(id);
+        }
+
+        public void LikePhoto(int userId, int photoId)
+        {
+            photoRepository.LikePhoto(photoId, userId);
+        }
+
+        public void DislikePhoto(int userId, int photoId)
+        {
+            photoRepository.DislikePhoto(photoId, userId);
+        }
+
+        public void AddComment(BllComment comment)
+        {
+           commentRepository.Insert(comment.ToDalComment());
+        }
+
+        public int CountCommentByPhotoId(int photoId)
+        {
+            return commentRepository.CountByPhotoId(photoId);
+        }
+
+        public IEnumerable<BllComment> GetCommentsByPhotoId(int photoId, int skip, int take)
+        {
+            return commentRepository.GetByPhotoId(photoId, skip, take).Select(p => p.ToBllComment());
+        }
+
+        public void Delete(int photoId)
+        {
+            commentRepository.DeleteAllCommentsToPhoto(photoId);
+            photoRepository.Delete(photoRepository.GetById(photoId));
         }
     }
 }

@@ -1,0 +1,11 @@
+﻿@model MvcPL.Models.PhotoRatingViewModel
+
+<div style="height: 5px"></div>
+<a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#rating"
+   href="@Url.Action("LikePhoto", "Photos", new
+         {
+             photoId = Model.Id
+         })" class="rat" id="like">
+    <i class="icon ion-android-favorite-outline" style="font-size: 24px;"></i>
+</a>
+<span class="align-top">@Model.NumberOfLikes</span>

@@ -61,12 +61,12 @@ namespace DAL.Concrete
         //        new UpdateOptions() { IsUpsert = true });
         //}
 
-        //public void ChangeName(int userId, string newName)
-        //{
-        //    var updateName = Builders<User>.Update.Set(p => p.Name, newName);
-        //    modelContext.Users.UpdateOne(p => p.Id == userId, updateName,
-        //        new UpdateOptions() { IsUpsert = true });
-        //}
+        public void ChangeName(int userId, string newName)
+        {
+            var updateName = Builders<User>.Update.Set(p => p.Name, newName);
+            modelContext.Users.UpdateOne(p => p.Id == userId, updateName,
+                new UpdateOptions() { IsUpsert = true });
+        }
 
         //public void ChangeEmail(int userId, string newEmail)
         //{

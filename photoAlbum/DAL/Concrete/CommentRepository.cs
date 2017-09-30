@@ -28,7 +28,7 @@ namespace DAL.Concrete
 
         public void Insert(DalComment entity)
         {
-            entity.Id = GetId();
+            entity.Id = GetId() + 1;
             modelContext.Comments.InsertOne(entity.ToOrmComment());
         }
 
@@ -50,7 +50,7 @@ namespace DAL.Concrete
 
         public IEnumerable<DalComment> GetByPhotoId(int photoId, int skip = 0, int take = 10)
         {
-            return modelContext.Comments.Find(c => c.PhotoId == photoId).Skip(skip).Limit(take).ToList()
+            return modelContext.Comments.Find(c => c.PhotoId == photoId).SortByDescending(p=>p.Posted).Skip(skip).Limit(take).ToList()
                 .Select(c => c.ToDalComment());
         }
 
@@ -62,6 +62,11 @@ namespace DAL.Concrete
         public void DeleteAllCommentsOfUser(int userId)
         {
             modelContext.Comments.DeleteMany(c => c.Author.Id == userId);
+        }
+
+        public int CountByPhotoId(int photoId)
+        {
+            return (int)modelContext.Comments.Find(t => t.PhotoId == photoId).Count();
         }
     }
 }

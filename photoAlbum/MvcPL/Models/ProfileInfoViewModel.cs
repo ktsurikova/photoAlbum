@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace MvcPL.Models
+{
+    public class ProfileInfoViewModel
+    {
+        public string Name { get; set; }
+        public byte[] ProfilePhoto { get; set; }
+    }
+}

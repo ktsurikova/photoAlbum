@@ -13,8 +13,14 @@ else
         <div id="image" class="col-lg-4 col-md-6">
             @*<a data-fancybox data-type="ajax" data-src="@Url.Action("PhotoDetails", new {p.Id})" href="javascript:;">*@
             <a href="@Url.Action("ShowImage", "Photos", new {p.Id})" data-type="image" data-fancybox="images">
-                <img src="@Url.Action("ShowImage","Photos",  new {p.Id})" height="350px" width="auto" />
-            </a>
+                <img src="@Url.Action("ShowImage","Photos",  new {p.Id})" height="350px"
+                     width="auto" />             
+            </a>            
+            
+            <div>
+                <a href="@Url.Action("PhotoDetails", "Photos", new {p.Id})" class="viewDetails">View Details</a>
+            </div>
+            
         </div>
     }
 @*}*@

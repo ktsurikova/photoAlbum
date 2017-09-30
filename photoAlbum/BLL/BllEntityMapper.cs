@@ -78,6 +78,51 @@ namespace BLL
         }
         #endregion
 
+        #region Author
+        public static DalAuthor ToDalAuthor(this BllAuthor author)
+        {
+            return new DalAuthor()
+            {
+                Id = author.Id,
+                Name = author.Name
+            };
+        }
+
+        public static BllAuthor ToBllAuthor(this DalAuthor author)
+        {
+            return new BllAuthor()
+            {
+                Id = author.Id,
+                Name = author.Name
+            };
+        }
+        #endregion
+
+        #region Comment
+        public static DalComment ToDalComment(this BllComment comment)
+        {
+            return new DalComment()
+            {
+                Id = comment.Id,
+                Author = comment.Author.ToDalAuthor(),
+                PhotoId = comment.PhotoId,
+                Posted = comment.Posted,
+                Text = comment.Text
+            };
+        }
+
+        public static BllComment ToBllComment(this DalComment comment)
+        {
+            return new BllComment()
+            {
+                Id = comment.Id,
+                Author = comment.Author.ToBllAuthor(),
+                PhotoId = comment.PhotoId,
+                Posted = comment.Posted,
+                Text = comment.Text
+            };
+        }
+        #endregion
 
     }
 }

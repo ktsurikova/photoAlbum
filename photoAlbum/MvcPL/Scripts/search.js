@@ -53,10 +53,16 @@ function DisplayImages(data) {
                     $('<img />').attr({
                         'src': '/Photos/ShowImage/' + value.Id,
                         //"data:image/png;base64," + _arrayBufferToBase64(value.Image),
+                        
+                        //'class': 'col-lg-12 col-md-12',
                         'height': '350px',
-                        'width': 'auto'
+                        'width': 'auto !important'
                     })
                 ).appendTo(imdiv);
+
+                $('<div><a href="/Photos/PhotoDetails/'+value.Id+'" class="viewDetails">View Details</a><div>').appendTo(imdiv);
+
+
             });
 
         if (data.PageInfo.TotalPages != data.PageInfo.PageNumber) {
@@ -82,7 +88,8 @@ function DisplayImages(data) {
 
                 }));
 
-
+            //mform.append(
+            //    '<a data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#images" href="/Photos/Foo">Customer from Germany</a>');
             //var temp = '<a class="btn btn-outline-success my-2 my-sm-0 fuckingYou" id="fuckingYou" onclick="getPagedData(' +
             //    data.PageInfo.Tag + ', ' + (+data.PageInfo.PageNumber + +1) + ')" href="#">Load more&nbsp;&nbsp;</a>';
             //imdiv.append(temp);

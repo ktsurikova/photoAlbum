@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DAL.Interface">
+      <HintPath>..\DAL.Interface\bin\Debug\DAL.Interface.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\BllAuthor.cs" />
+    <Compile Include="Entities\BllComment.cs" />
     <Compile Include="Entities\BllPhoto.cs" />
     <Compile Include="Entities\BllUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

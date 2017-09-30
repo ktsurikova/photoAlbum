@@ -25,7 +25,7 @@
             }
             else
             {
-                <img src="@Url.Action("ShowImage","Profile", new {image=Model.ProfilePhoto})" height="350px" width="auto">
+                <img src="@Url.Action("ShowImage","Profile")" height="200px" width="auto" style="border-radius:10px">
             }
         </div>
         <div class="personalInfo col-lg-4 col-md-4">
@@ -35,13 +35,13 @@
             @if (!string.IsNullOrEmpty(Model.Name))
             {
                 //<h5>Name</h5>
-                //<h4>@Model.Name</h4>
+                <h5>@Model.Name</h5>
                 //!string...
             }
         </div>
         <div class="profileButtons col-lg-4 col-md-4">
             <div class="col-lg-12 col-md-12 editProfile">
-                <a href="@Url.Action("UploadPhoto", "Profile")" class="btn ml-auto my-2 my-sm-0 signUpButton "
+                <a href="@Url.Action("EditeProfile", "Profile")" class="btn ml-auto my-2 my-sm-0 signUpButton "
                    type="submit">Edit Profile</a>
             </div>
             <div class="col-lg-12 col-md-12 uploadPhoto">

@@ -17,5 +17,11 @@ namespace BLL.Interface.Services
         BllPhoto GetById(int id);
         IEnumerable<BllPhoto> GetByUserId(int userId, int skip, int take);
         int CountByUserId(int id);
+        void LikePhoto(int userId, int photoId);
+        void DislikePhoto(int userId, int photoId);
+        void AddComment(BllComment comment);
+        int CountCommentByPhotoId(int photoId);
+        IEnumerable<BllComment> GetCommentsByPhotoId(int photoId, int skip, int take);
+        void Delete(int photoId);
     }
 }

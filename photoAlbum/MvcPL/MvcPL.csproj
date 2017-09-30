@@ -159,7 +159,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\default_photo.jpg" />
     <Content Include="Content\home.png" />
+    <Content Include="Content\ionicons.css" />
     <Content Include="Content\jquery.fancybox.css" />
+    <Content Include="Content\mole.jpg" />
     <Content Include="Content\signout.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -204,7 +206,11 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\user_green-5121.png" />
+    <Content Include="fonts\ionicons.svg" />
     <Content Include="Global.asax" />
+    <Content Include="fonts\ionicons.eot" />
+    <Content Include="fonts\ionicons.ttf" />
+    <Content Include="fonts\ionicons.woff" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -220,6 +226,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\popover.js" />
     <Content Include="Scripts\search.js" />
     <Content Include="Scripts\uploadImage.js" />
     <Content Include="Web.config" />
@@ -229,6 +236,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
@@ -236,10 +244,17 @@
     </Compile>
     <Compile Include="Infrastructure\MvcMapper.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
-    <Compile Include="Models\PageInfo.cs" />
-    <Compile Include="Models\PaginationViewModel.cs" />
-    <Compile Include="Models\PhotoPageInfo.cs" />
+    <Compile Include="Models\AddCommentViewModel.cs" />
+    <Compile Include="Models\CommentViewModel.cs" />
+    <Compile Include="Models\EditProfileViewModel.cs" />
+    <Compile Include="Models\pagination\PageInfo.cs" />
+    <Compile Include="Models\pagination\PaginationViewModel.cs" />
+    <Compile Include="Models\PhotoDetailsViewModel.cs" />
+    <Compile Include="Models\PhotoOwnerViewModel.cs" />
+    <Compile Include="Models\pagination\PhotoPageInfo.cs" />
+    <Compile Include="Models\PhotoRatingViewModel.cs" />
     <Compile Include="Models\PhotoViewModel.cs" />
+    <Compile Include="Models\ProfileInfoViewModel.cs" />
     <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Models\SignInViewModel.cs" />
     <Compile Include="Models\SignUpViewModel.cs" />
@@ -260,7 +275,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Photos\Index.cshtml" />
     <Content Include="Views\Shared\_SearchForm.cshtml" />
-    <Content Include="Views\Photos\PhotoDetails.cshtml" />
     <Content Include="Views\Shared\_FoundImages.cshtml" />
     <Content Include="Views\Shared\_LoadMore.cshtml" />
     <Content Include="Views\Account\_SignIn.cshtml" />
@@ -271,6 +285,13 @@
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\UploadPhoto.cshtml" />
     <Content Include="Views\Shared\_SearchFormAuthRedirectToHome.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Profile\EditeProfile.cshtml" />
+    <Content Include="Views\Photos\PhotoDetails.cshtml" />
+    <Content Include="Views\Photos\_PhotoDetails.cshtml" />
+    <Content Include="Views\Photos\_LikePhoto.cshtml" />
+    <Content Include="Views\Photos\_DislikePhoto.cshtml" />
+    <Content Include="Views\Photos\_Comments.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

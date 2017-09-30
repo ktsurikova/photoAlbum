@@ -10,7 +10,7 @@ namespace DAL.Interface.Repository
     public interface IUserRepository : IRepository<DalUser>
     {
         //void ChangeLogin(int userId, string newLogin);
-        //void ChangeName(int userId, string newName);
+        void ChangeName(int userId, string newName);
         //void ChangeEmail(int userId, string newEmail);
         void ChangePassword(int userId, string newPassword);
         DalUser GetUserByLogin(string login);

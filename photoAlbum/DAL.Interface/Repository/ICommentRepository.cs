@@ -12,5 +12,6 @@ namespace DAL.Interface.Repository
         IEnumerable<DalComment> GetByPhotoId(int photoId, int skip = 0, int take = 10);
         void DeleteAllCommentsToPhoto(int photoId);
         void DeleteAllCommentsOfUser(int userId);
+        int CountByPhotoId(int photoId);
     }
 }

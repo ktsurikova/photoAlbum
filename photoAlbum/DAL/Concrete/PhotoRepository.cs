@@ -125,8 +125,8 @@ namespace DAL.Concrete
 
         public void LikePhoto(int photoId, int userId)
         {
-            if (CheckIfLiked(photoId, userId))
-                return;
+            //if (CheckIfLiked(photoId, userId))
+            //    return;
             var updateLike = Builders<Photo>.Update.Inc(p => p.NumberOfLikes, 1);
             var updateUserLikes = Builders<Photo>.Update.AddToSet(p => p.UserLikes, userId);
             var combinedUpdateDefinition = Builders<Photo>.Update.Combine(updateLike, updateUserLikes);
@@ -136,8 +136,8 @@ namespace DAL.Concrete
 
         public void DislikePhoto(int photoId, int userId)
         {
-            if (!CheckIfLiked(photoId, userId))
-                return;
+            //if (!CheckIfLiked(photoId, userId))
+            //    return;
             var updateLike = Builders<Photo>.Update.Inc(p => p.NumberOfLikes, -1);
             var updateUserLikes = Builders<Photo>.Update.Pull(p => p.UserLikes, userId);
             var combinedUpdateDefinition = Builders<Photo>.Update.Combine(updateLike, updateUserLikes);

@@ -22,6 +22,10 @@ namespace MvcPL.App_Start
 
             bundles.Add(new ScriptBundle("~/bundles/search").Include("~/Scripts/search.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/popover").Include(
+                "~/Scripts/jquery-{version}.js").Include(
+                "~/Scripts/jquery-ui-{version}.js").Include("~/Scripts/popover.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/uploadImage").Include("~/Scripts/uploadImage.js"));
 
             //bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
@@ -34,7 +38,8 @@ namespace MvcPL.App_Start
             //    "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/Site.css")
-                .Include("~/Content/bootstrap.css").Include("~/Content/jquery.fancybox.css"));
+                .Include("~/Content/bootstrap.css").Include("~/Content/jquery.fancybox.css")
+                .Include("~/Content/ionicons.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                 "~/Content/themes/base/jquery-ui.css"

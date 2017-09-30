@@ -1,0 +1,70 @@
+﻿@using System.Web.Mvc.Ajax
+@using System.Web.Optimization
+@model MvcPL.Models.ProfileInfoViewModel
+
+@{
+    ViewBag.Title = "EditeProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section SearchForm
+{
+    @Html.Partial("_SearchFormAuthRedirectToHome")
+}
+
+@section body{
+    <div class="container container-photo">
+
+        @using (Html.BeginForm("EditePtofile", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="form-group row justify-content-center">
+            @Html.LabelFor(m => m.Name, new { @class = "col-form-label uploadLabel col-md-2" })
+            <div class="col-md-6">
+                <input class="form-control" id="Name" name="Name" type="text" value="@Model.Name">
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <div class="col-form-label uploadLabel col-md-2">Profile photo</div>
+            <div class="col-md-6"></div>
+            <div class="col-md-12">
+                <div class="labelCurrentPhoto">Current</div>
+
+                @if (Model.ProfilePhoto == null)
+                {
+                    <div class="currentPhoto">
+                        <img src="~/Content/default_photo.jpg" height="200px" width="auto" style="border-radius:10px">
+                    </div>
+
+                }
+                else
+                {
+                    <div class="currentPhoto">
+                        <img src="@Url.Action("ShowImage", "Profile", new {image = Model.ProfilePhoto})"
+                              height="200px" width="auto" style="border-radius: 10px">
+                    </div>
+                }
+                
+                <div class="new_Btn btn signUpButton" style="margin-top: 5px; margin-bottom: 16px">SelectPicture</div><br>
+                <input type="file" id="ImageFile" name="ImageFile" class="btn signUpButton" accept=".jpg, .jpeg, .png" />
+
+
+                <div id="imgPreview" class="thumbnail" style="display: none">
+                    <img class="img-responsive" id="targetImg" height="200px" width="auto" style="border-radius: 10px" />
+                </div>
+
+            </div>
+        </div>
+
+            
+            <input type="submit" class="btn signUpButton" id="UploadButton" value="Save changes"
+                   style="margin-top: 16px">
+        }
+
+
+    </div>
+
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/uploadImage")
+}

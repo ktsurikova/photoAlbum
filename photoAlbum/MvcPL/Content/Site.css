@@ -1,4 +1,8 @@
-﻿.logo {
+﻿a:hover {
+    text-decoration: none !important;
+    color: black ! important; 
+}
+.logo {
     background-color: #28a745; /*#2dcb74;*/
     color: white;
     font-family: Comic Sans MS;
@@ -197,4 +201,97 @@
 }
 .uploadField {
     float: right;
+}
+.labelCurrentPhoto {
+    margin: 6px;
+}
+.currentPhoto {
+    margin: 5px;
+    margin-top:10px;
+}
+.imageDetails {
+    float: left;
+}
+.infoDetails {
+    padding-left: 24px;
+    overflow: hidden;
+    height: 580px;
+    width: 300px;
+}
+.ownerDetails {
+    padding-top: 20px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    /*border-bottom: 1px solid #efefef;*/
+}
+.ownerName {
+    margin: auto;
+    margin-left: 12px;
+    margin-right: 0px;
+}
+.photoDetails {
+    padding-top: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #efefef;
+}
+.fade {
+    opacity: 1 !important;
+    padding: 5px !important;
+}
+
+.dateUpload {
+    color: #999;
+    font-size: 14px;
+    letter-spacing: .2px;
+}
+.addionalInfo {
+    padding-bottom: 10px;
+    /*border-bottom: 1px solid #efefef;*/
+    padding-top: 5px;
+    border-top: 1px solid #efefef;
+}
+.redColor {
+    color: red !important;
+}
+#like {
+    -webkit-appearance: none;
+}
+.viewDetails {
+    color: #D3D3D3;
+}
+#addComment {
+    font-size: 14px;
+    color: #808080;
+
+    display: block;
+    padding: 0.5rem 0.75rem;
+    line-height: 1.25;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    margin-right: 10px !important;
+    float: left;
+}
+.comments {
+    margin-top:5px;
+    height: 250px;
+    max-height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size:15px;
+}
+.commentAuthor-name {
+    font-weight: 600;
+}
+.loadMoreComment {
+    color: #999 !important;
+}
+.loadMoreComment:hover {
+    color: #999 !important;
+}
+.noComment {
+    color: #999 !important; 
 }

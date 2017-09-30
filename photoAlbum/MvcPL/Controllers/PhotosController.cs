@@ -12,13 +12,16 @@ namespace MvcPL.Controllers
 {
     public class PhotosController : Controller
     {
-        public const int ImagesOnPage = 1;
+        public const int ImagesOnPage = 3;
+        public const int CommentOnPage = 3;
 
         private readonly IPhotoService photoService;
+        private readonly IAccountService accountService;
 
-        public PhotosController(IPhotoService photoService)
+        public PhotosController(IPhotoService photoService, IAccountService accountService)
         {
             this.photoService = photoService;
+            this.accountService = accountService;
         }
 
         //Pagination
@@ -89,8 +92,75 @@ namespace MvcPL.Controllers
 
         public ActionResult PhotoDetails(int id)
         {
-            return View("PhotoDetails", photoService.GetById(id).ToPhotoViewModel());
+            PhotoDetailsViewModel photo = photoService.GetById(id).ToPhotoDetailsViewModel();
+            photo.Owner = accountService.GetUserById(photo.UserId).ToPhotoOwnerViewModel();
+            if (Request.IsAuthenticated)
+            {
+                photo.CurrentUserId = accountService.GetUserByLogin(User.Identity.Name).Id;
+            }
+
+            PageInfo pageInfo = new PageInfo
+            {
+                PageNumber = 1,
+                PageSize = CommentOnPage,
+                TotalItems = photoService.CountCommentByPhotoId(id)
+            };
+            IEnumerable<CommentViewModel> comments = photoService.GetCommentsByPhotoId(id, 0, CommentOnPage)
+                .Select(p => p.ToCommentViewModel());
+
+            ViewBag.Comments = new PaginationViewModel<CommentViewModel> {PageInfo = pageInfo, Items = comments};
+
+            return PartialView("_PhotoDetails", photo);
         }
 
+        [Authorize]
+        public ActionResult LikePhoto(int photoId)
+        {
+            int userId = accountService.GetUserByLogin(User.Identity.Name).Id;
+            photoService.LikePhoto(userId, photoId);
+            PhotoRatingViewModel photo = photoService.GetById(photoId).ToPhotoRatingViewModel();
+            return PartialView("_LikePhoto", photo);
+        }
+
+        [Authorize]
+        public ActionResult DislikePhoto(int photoId)
+        {
+            int userId = accountService.GetUserByLogin(User.Identity.Name).Id;
+            photoService.DislikePhoto(userId, photoId);
+            PhotoRatingViewModel photo = photoService.GetById(photoId).ToPhotoRatingViewModel();
+            return PartialView("_DislikePhoto", photo);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddComment(AddCommentViewModel model)
+        {
+            int userId = accountService.GetUserByLogin(User.Identity.Name).Id;
+            photoService.AddComment(model.ToBllComment(userId, User.Identity.Name));
+            return RedirectToAction("LoadMoreComment", new {page = 0, id = model.PhotoId});
+        }
+
+        public ActionResult LoadMoreComment(int page, int id)
+        {
+            PageInfo pageInfo = new PageInfo
+            {
+                PageNumber = page+1,
+                PageSize = CommentOnPage,
+                TotalItems = photoService.CountCommentByPhotoId(id)
+            };
+            IEnumerable<CommentViewModel> comments = photoService.GetCommentsByPhotoId(id, 
+                pageInfo.Skip, pageInfo.PageSize).Select(p => p.ToCommentViewModel());
+
+            var model = new PaginationViewModel<CommentViewModel> { PageInfo = pageInfo, Items = comments };
+            return PartialView("_Comments", model);
+        }
+
+        [Authorize]
+        public ActionResult DeletePhoto(int photoId)
+        {
+            photoService.Delete(photoId);
+            return RedirectToAction("Index");
+        }
+    
     }
 }

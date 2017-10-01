@@ -24,7 +24,6 @@ namespace MvcPL.Controllers
             this.accountService = accountService;
         }
 
-        //Pagination
         public ActionResult Index(int page = 1)
         {
             PhotoPageInfo pageInfo = new PhotoPageInfo { PageNumber = page, PageSize = ImagesOnPage, Tag = string.Empty, 

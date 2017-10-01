@@ -33,8 +33,7 @@ function DisplayProfileImages(data) {
                 link.append(
                     $('<img />').attr({
                         'src': '/Photos/ShowImage/' + value.Id,
-                        'height': '350px',
-                        'width': 'auto !important'
+                        'class':'viewImage'
                     })
                 ).appendTo(imdiv);
 

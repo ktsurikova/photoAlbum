@@ -10,7 +10,6 @@ namespace DAL.Interface.Repository
 {
     public interface IRepository<TEntity> where TEntity : IEntity
     {
-        //IEnumerable<TEntity> GetAll();
         TEntity GetById(int key);
         void Insert(TEntity entity);
         void Delete(TEntity entity);

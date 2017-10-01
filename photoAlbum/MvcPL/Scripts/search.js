@@ -52,11 +52,7 @@ function DisplayImages(data) {
                 link.append(
                     $('<img />').attr({
                         'src': '/Photos/ShowImage/' + value.Id,
-                        //"data:image/png;base64," + _arrayBufferToBase64(value.Image),
-
-                        //'class': 'col-lg-12 col-md-12',
-                        'height': '350px',
-                        'width': 'auto !important'
+                        'class':'viewImage'
                     })
                 ).appendTo(imdiv);
 
@@ -68,14 +64,10 @@ function DisplayImages(data) {
             });
 
         if (data.PageInfo.TotalPages != data.PageInfo.PageNumber) {
-            //var imdiv = $('<div/>',
-            //    {
-            //        id: 'loadMore'
-            //    }).appendTo('.images');
 
             var mform = $("<form/>",
                 {
-                    action: '/Photos/Search', //?tag='+ data.PageInfo.Tag + '&page=' + (+data.PageInfo.PageNumber + +1),
+                    action: '/Photos/Search',
                     method: 'post',
                     tag: data.PageInfo.Tag,
                     page: (+data.PageInfo.PageNumber + +1),
@@ -89,12 +81,6 @@ function DisplayImages(data) {
                     id: 'buttonLoadMore'
 
                 }));
-
-            //mform.append(
-            //    '<a data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#images" href="/Photos/Foo">Customer from Germany</a>');
-            //var temp = '<a class="btn btn-outline-success my-2 my-sm-0 fuckingYou" id="fuckingYou" onclick="getPagedData(' +
-            //    data.PageInfo.Tag + ', ' + (+data.PageInfo.PageNumber + +1) + ')" href="#">Load more&nbsp;&nbsp;</a>';
-            //imdiv.append(temp);
         }
     }
 }
@@ -102,18 +88,12 @@ function DisplayImages(data) {
 $('#loadMore').on('click',
     'form.loadMoreForm',
     function (event) {
-        //console.log("click");
         event.preventDefault();
         var url = $('#loadMoreForm').attr('action');
         var data = {
             tag: $('#loadMoreForm').attr('tag'),
             page: $('#loadMoreForm').attr('page')
         }
-        //console.log($('#loadMoreForm').attr('action'));
-        //console.log($('#loadMoreForm').attr('tag'));
-        //console.log($('#loadMoreForm').data());
-        //console.log($('#loadMoreFrom').data('tag'));
-        //var data = $('#loadMoreForm').serialize();
         $('#loadMore').empty();
         $.post(url, data,
             function (response) {
@@ -121,20 +101,10 @@ $('#loadMore').on('click',
             });
     });
 
-
-//function getPagedData(tag, page) {
-//    event.preventDefault();
-//    $('#loadMore').remove();
-//    $.getJSON("/Photos/Search", { tag: tag, page: page }, function (response) {
-//        DisplayImages(response);
-//    });
-//}
-
 $('#loadMoreForm').submit(function (event) {
     event.preventDefault();
 
     var url = $('#loadMoreForm').attr('action');
-    //console.log($('#loadMoreForm').attr('action'));
     var data = $('#loadMoreForm').serialize();
     $('#loadMore').empty();
     $.post(url, data,

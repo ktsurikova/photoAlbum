@@ -52,7 +52,6 @@ namespace MvcPL.Controllers
                 PageSize = ImagesOnPage,
                 TotalItems = photoService.CountByUserId(userId)
             };
-            var i = pageInfo.PageNumber;
             IEnumerable<PhotoViewModel> photos = photoService.GetByUserId(userId,
                 pageInfo.Skip, pageInfo.PageSize).Select(p => p.ToPhotoViewModel());
 
@@ -84,15 +83,15 @@ namespace MvcPL.Controllers
             return RedirectToAction("Index", "Profile");
         }
 
-        public ActionResult EditeProfile()
+        public ActionResult EditProfile()
         {
             ProfileInfoViewModel profileViewModel = accountService.
                 GetUserByLogin(User.Identity.Name).ToProfileInfoViewModel();
-            return View("EditeProfile", profileViewModel);
+            return View("EditProfile", profileViewModel);
         }
 
         [HttpPost]
-        public ActionResult EditePtofile(EditProfileViewModel model)
+        public ActionResult EditPtofile(EditProfileViewModel model)
         {
             int userId = accountService.GetUserByLogin(User.Identity.Name).Id;
             accountService.EditeUserPtofile(userId, model.Name, model.ImageFile.ToByteArray());

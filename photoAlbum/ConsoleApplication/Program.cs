@@ -135,7 +135,10 @@ namespace ConsoleApplication
             //u.Roles = new List<string>() {"User", "Admin"};
             //rp.Update(u);
 
-
+            //DalPhoto p = rep.GetById(11);
+            ////p.Tags = new List<string>() {"#steven", "#ballet", "#muscular", "#royalballet"};
+            //p.UploadDate = new DateTime(2017, 9, 21, 18, 30, 30);
+            //rep.Update(p);
 
             Console.ReadKey();
         }

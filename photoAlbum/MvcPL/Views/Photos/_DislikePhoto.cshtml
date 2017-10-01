@@ -1,8 +1,7 @@
 ﻿@model MvcPL.Models.PhotoRatingViewModel
 
 <div style="height: 5px"></div>
-<a @*data-ajax="true" data-ajax-mode="replace" data-ajax-update="#rating"*@
-   href="@Url.Action("LikePhoto", "Photos", new
+<a href="@Url.Action("LikePhoto", "Photos", new
          {
              photoId = Model.Id
          })" class="rat" id="like">

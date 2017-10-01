@@ -62,6 +62,8 @@ namespace MvcPL.Providers
             return user != null && Crypto.VerifyHashedPassword(user.Password, password);
         }
 
+        #region stub
+
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
             throw new NotImplementedException();
@@ -71,15 +73,7 @@ namespace MvcPL.Providers
         {
             throw new NotImplementedException();
         }
-
-
-
-
-
-
-
-
-        #region stub
+        
 
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion,
             string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)

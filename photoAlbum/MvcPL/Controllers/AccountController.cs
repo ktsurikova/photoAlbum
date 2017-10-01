@@ -29,7 +29,6 @@ namespace MvcPL.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public ActionResult SignIn(SignInViewModel viewModel, string returnUrl)
         {
             if (ModelState.IsValid)
@@ -42,21 +41,13 @@ namespace MvcPL.Controllers
                         return Redirect(returnUrl);
                     }
                     else
-                    {   
+                    {
                         return RedirectToAction("Index", "Photos");
                     }
                 }
                 else
                 {
-                    //if (Request.IsAjaxRequest())
-                    //{
-                    //    return Json("Incorrect login or password", JsonRequestBehavior.AllowGet);
-                    //}
-                    //else
-                    //{
-                        ModelState.AddModelError("", "Incorrect login or password.");
-                    //}
-                    
+                    ModelState.AddModelError("", "Incorrect login or password.");
                 }
             }
             return View("SignIn", viewModel);

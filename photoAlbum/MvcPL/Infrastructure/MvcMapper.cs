@@ -15,14 +15,7 @@ namespace MvcPL.Infrastructure
             return new PhotoViewModel()
             {
                 Id = photo.Id,
-                //Name = photo.Name,
-                //Description = photo.Description,
-                Image = photo.Image,
-                //NumberOfLikes = photo.NumberOfLikes,
-                //Tags = photo.Tags,
-                //UploadDate = photo.UploadDate,
-                //UserId = photo.UserId,
-                //UserLikes = photo.UserLikes
+                Image = photo.Image
             };
         }
 
@@ -59,22 +52,6 @@ namespace MvcPL.Infrastructure
                 NumberOfLikes = photo.NumberOfLikes
             };
         }
-
-        //public static BllPhoto ToBllPhoto(this PhotoViewModel photo)
-        //{
-        //    return new BllPhoto()
-        //    {
-        //        Id = photo.Id,
-        //        Name = photo.Name,
-        //        Description = photo.Description,
-        //        Image = photo.Image,
-        //        NumberOfLikes = photo.NumberOfLikes,
-        //        Tags = photo.Tags,
-        //        UploadDate = photo.UploadDate,
-        //        UserId = photo.UserId,
-        //        UserLikes = photo.UserLikes
-        //    };
-        //}
 
         public static ProfileViewModel ToProfileViewModel(this BllUser user)
         {

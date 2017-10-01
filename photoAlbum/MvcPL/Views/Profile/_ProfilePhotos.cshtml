@@ -3,19 +3,10 @@
     bool emptySearch = Model.PageInfo.TotalItems == 0 || (!Model.Items.Any());
 }
 
-@*@if (emptySearch)
+
+@if (Model.PageInfo.TotalPages != Model.PageInfo.PageNumber)
 {
-    <div class="emptySearch">Upload your first photo</div>
+    <a href="@Url.Action("LoadMorePhotos", "Profile")" id="loadMorePhotos" class="loadMorePhotos btn signUpButton" page="@Model.PageInfo.PageNumber">
+        Load more
+    </a>
 }
-else
-{
-    @Html.Partial("_FoundImages", Model)*@
-
-
-    @if (Model.PageInfo.TotalPages != Model.PageInfo.PageNumber)
-    {
-        <a href="@Url.Action("LoadMorePhotos", "Profile")" id="loadMorePhotos" class="loadMorePhotos btn signUpButton" page="@Model.PageInfo.PageNumber">
-            Load more
-        </a>
-    }
-@*}*@

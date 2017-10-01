@@ -288,7 +288,7 @@
     <Content Include="Views\Profile\UploadPhoto.cshtml" />
     <Content Include="Views\Shared\_SearchFormAuthRedirectToHome.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
-    <Content Include="Views\Profile\EditeProfile.cshtml" />
+    <Content Include="Views\Profile\EditProfile.cshtml" />
     <Content Include="Views\Photos\PhotoDetails.cshtml" />
     <Content Include="Views\Photos\_PhotoDetails.cshtml" />
     <Content Include="Views\Photos\_LikePhoto.cshtml" />

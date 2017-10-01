@@ -3,7 +3,7 @@
 @model MvcPL.Models.ProfileInfoViewModel
 
 @{
-    ViewBag.Title = "EditeProfile";
+    ViewBag.Title = "EditProfile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -15,7 +15,7 @@
 @section body{
     <div class="container container-photo">
 
-        @using (Html.BeginForm("EditePtofile", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("EditPtofile", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div class="form-group row justify-content-center">
             @Html.LabelFor(m => m.Name, new { @class = "col-form-label uploadLabel col-md-2" })

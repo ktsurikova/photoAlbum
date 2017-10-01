@@ -6,28 +6,6 @@ $('.popover-dismiss').popover({
     trigger: 'focus'
 });
 
-//$('#like').click(function (event) {
-//    event.preventDefault();
-
-//    var url = $('#like').attr('href');
-//    $.post(url,
-//        function(response) {
-//            $('#rating').empty();
-//            $('#rating').append(response);
-//        });
-//});
-
-//$('#dislike').click(function (event) {
-//    event.preventDefault();
-
-//    var url = $('#dislike').attr('href');
-//    $.post(url,
-//        function (response) {
-//            $('#rating').empty();
-//            $('#rating').append(response);
-//        });
-//});
-
 $('#rating').on('click',
     'a.rat',
     function (event) {
@@ -58,22 +36,6 @@ $('#addCommentButton').click(function (event) {
             });
     }
 });
-
-//$('#loadMoreComment').click(function (event) {
-//    event.preventDefault();
-//    var url = $('#loadMoreComment').attr('href');
-//    var data = {
-//        id: $('#comments').attr('photo'),
-//        page: $('#loadMoreComment').attr('page')
-//    }
-//    $.post(url,
-//        data,
-//        function (response) {
-//            console.log(response);
-//            $('#loadMoreComment').empty();
-//            $('#comments').prepend(response);
-//        });
-//});
 
 $('#comments').on('click',
     'a.loadMoreComment',

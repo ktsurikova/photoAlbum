@@ -59,11 +59,6 @@ namespace DAL.Concrete
             modelContext.Comments.DeleteMany(c => c.PhotoId == photoId);
         }
 
-        public void DeleteAllCommentsOfUser(int userId)
-        {
-            modelContext.Comments.DeleteMany(c => c.Author.Id == userId);
-        }
-
         public int CountByPhotoId(int photoId)
         {
             return (int)modelContext.Comments.Find(t => t.PhotoId == photoId).Count();

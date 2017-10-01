@@ -22,18 +22,6 @@
                 @Model.Owner.NameOwner
             </span>
 
-            @*@if (Model.CurrentUserId == Model.UserId)
-            {
-                <div class="col-1" style="float: right">
-                    <a href="@Url.Action("DeletePhoto", "Photos", new {photoId = Model.Id})">
-                        <i class="icon ion-ios-close-empty" style="font-size: 24px;"></i>
-                    </a>
-                </div>
-
-            }*@
-
-
-
         </div>
         <div class="photoDetails">
             @if (!string.IsNullOrEmpty(Model.Name))

@@ -24,9 +24,12 @@ namespace MvcPL.App_Start
 
             bundles.Add(new ScriptBundle("~/bundles/popover").Include(
                 "~/Scripts/jquery-{version}.js").Include(
-                "~/Scripts/jquery-ui-{version}.js").Include("~/Scripts/popover.js"));
+                "~/Scripts/jquery-ui-{version}.js").Include("~/Scripts/popover.js")
+                .Include("~/Scripts/photoDetails.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/uploadImage").Include("~/Scripts/uploadImage.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/profile").Include("~/Scripts/profilePhoto.js"));
 
             //bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
             //    "~/Scripts/jquery-ui-{version}.js"));

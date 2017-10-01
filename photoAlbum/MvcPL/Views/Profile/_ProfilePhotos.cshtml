@@ -1,0 +1,21 @@
+﻿@model MvcPL.Models.PaginationViewModel<MvcPL.Models.PhotoViewModel>
+@{
+    bool emptySearch = Model.PageInfo.TotalItems == 0 || (!Model.Items.Any());
+}
+
+@*@if (emptySearch)
+{
+    <div class="emptySearch">Upload your first photo</div>
+}
+else
+{
+    @Html.Partial("_FoundImages", Model)*@
+
+
+    @if (Model.PageInfo.TotalPages != Model.PageInfo.PageNumber)
+    {
+        <a href="@Url.Action("LoadMorePhotos", "Profile")" id="loadMorePhotos" class="loadMorePhotos btn signUpButton" page="@Model.PageInfo.PageNumber">
+            Load more
+        </a>
+    }
+@*}*@

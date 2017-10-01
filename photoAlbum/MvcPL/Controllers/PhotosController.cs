@@ -12,7 +12,7 @@ namespace MvcPL.Controllers
 {
     public class PhotosController : Controller
     {
-        public const int ImagesOnPage = 3;
+        public const int ImagesOnPage = 6;
         public const int CommentOnPage = 3;
 
         private readonly IPhotoService photoService;
@@ -48,12 +48,9 @@ namespace MvcPL.Controllers
             {
                 return Json(projection.ToList(), JsonRequestBehavior.AllowGet);
             }
-            //TO DO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             return View("Index");
         }
 
-        //Pagination
-        //[ValidateAntiForgeryToken]
         public ActionResult Search(string tag = "", int page = 1)
         {
             PhotoPageInfo pageInfo = new PhotoPageInfo

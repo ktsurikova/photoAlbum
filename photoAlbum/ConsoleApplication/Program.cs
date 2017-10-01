@@ -102,23 +102,23 @@ namespace ConsoleApplication
             //p.
             //rep.Update(p);
 
-            CommentRepository c = new CommentRepository();
-            //DalComment com = c.GetById(4);
-            //com.Text = "oh, miss you too.I'm looking forward to our meeting next friday)";
-            //c.Update(com);
-            DalComment c1 = new DalComment()
-            {
-                Id = 5,
-                PhotoId = 4,
-                Author = new DalAuthor()
-                {
-                    Id = 6,
-                    Name = "yasmine_naghdi"
-                },
-                Posted = new DateTime(2017, 9, 30, 22, 00, 30),
-                Text = "you're as beautiful as ever"
-            };
-            c.Insert(c1);
+            //CommentRepository c = new CommentRepository();
+            ////DalComment com = c.GetById(4);
+            ////com.Text = "oh, miss you too.I'm looking forward to our meeting next friday)";
+            ////c.Update(com);
+            //DalComment c1 = new DalComment()
+            //{
+            //    Id = 5,
+            //    PhotoId = 4,
+            //    Author = new DalAuthor()
+            //    {
+            //        Id = 6,
+            //        Name = "yasmine_naghdi"
+            //    },
+            //    Posted = new DateTime(2017, 9, 30, 22, 00, 30),
+            //    Text = "you're as beautiful as ever"
+            //};
+            //c.Insert(c1);
 
             //p.NumberOfLikes = 0;
             //p.UserLikes = new List<int>(0);
@@ -129,6 +129,12 @@ namespace ConsoleApplication
             //p.UploadDate = new DateTime(2017, 9, 21, 19, 30, 30);
             ////p.UserId = 1;
             //rep.Update(p);
+
+            //UserRepository rp = new UserRepository();
+            //DalUser u = rp.GetById(1);
+            //u.Roles = new List<string>() {"User", "Admin"};
+            //rp.Update(u);
+
 
 
             Console.ReadKey();

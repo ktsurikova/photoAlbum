@@ -58,7 +58,8 @@ namespace DAL.Concrete
         public IEnumerable<DalPhoto> GetByTag(string tag, int skip = 0, int take = 10)
         {
             var filter = Builders<Photo>.Filter.AnyEq(p => p.Tags, tag);
-            return modelContext.Photos.Find(filter).Skip(skip).Limit(take).ToList()
+            var filter2 = Builders<Photo>.Sort.Descending(p => p.UploadDate);
+            return modelContext.Photos.Find(filter).Sort(filter2).Skip(skip).Limit(take).ToList()
                 .Select(p => p.ToDalPhoto());
         }
 
@@ -93,7 +94,8 @@ namespace DAL.Concrete
 
         public IEnumerable<DalPhoto> GetByUserId(int userId, int skip = 0, int take = 10)
         {
-            return modelContext.Photos.Find(p => p.UserId == userId).Skip(skip).Limit(take).ToList()
+            var filter = Builders<Photo>.Sort.Descending(p => p.UploadDate);
+            return modelContext.Photos.Find(p => p.UserId == userId).Sort(filter).Skip(skip).Limit(take).ToList()
                 .Select(p => p.ToDalPhoto());
         }
 

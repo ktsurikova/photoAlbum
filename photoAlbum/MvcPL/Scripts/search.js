@@ -53,14 +53,16 @@ function DisplayImages(data) {
                     $('<img />').attr({
                         'src': '/Photos/ShowImage/' + value.Id,
                         //"data:image/png;base64," + _arrayBufferToBase64(value.Image),
-                        
+
                         //'class': 'col-lg-12 col-md-12',
                         'height': '350px',
                         'width': 'auto !important'
                     })
                 ).appendTo(imdiv);
 
-                $('<div><a href="/Photos/PhotoDetails/'+value.Id+'" class="viewDetails">View Details</a><div>').appendTo(imdiv);
+                $('<div><a data-fancybox data-type="ajax" data-src="/Photos/PhotoDetails/' + value.Id
+                    + '" href="/Photos/PhotoDetails/' + value.Id + '" class="viewDetails">View Details</a><div>')
+                    .appendTo(imdiv);
 
 
             });
@@ -83,7 +85,7 @@ function DisplayImages(data) {
             mform.append($('<button/>',
                 {
                     text: 'Load more',
-                    class: 'btn my-2 my-sm-0 buttonLoadMore',
+                    class: 'btn my-2 my-sm-0 signUpButton',
                     id: 'buttonLoadMore'
 
                 }));

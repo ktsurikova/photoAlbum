@@ -12,7 +12,7 @@ namespace MvcPL.Controllers
     [Authorize]
     public class ProfileController : Controller
     {
-        public const int ImagesOnPage = 1;
+        public const int ImagesOnPage = 3;
         private readonly IAccountService accountService;
         private readonly IPhotoService photoService;
 
@@ -42,36 +42,23 @@ namespace MvcPL.Controllers
             return View("Index", profileViewModel);
         }
 
-        public ActionResult Search(int page = 1)
+        public ActionResult LoadMorePhotos(int page)
         {
             int userId = accountService.GetUserByLogin(User.Identity.Name).Id;
 
             PageInfo pageInfo = new PageInfo
             {
-                PageNumber = page,
+                PageNumber = page + 1,
                 PageSize = ImagesOnPage,
                 TotalItems = photoService.CountByUserId(userId)
             };
+            var i = pageInfo.PageNumber;
+            IEnumerable<PhotoViewModel> photos = photoService.GetByUserId(userId,
+                pageInfo.Skip, pageInfo.PageSize).Select(p => p.ToPhotoViewModel());
 
-            if (Request.IsAjaxRequest())
-            {
-                IEnumerable<PhotoViewModel> photos = photoService.GetByUserId(userId, pageInfo.Skip, pageInfo.PageSize)
-                    .Select(p => p.ToPhotoViewModel());
+            var model = new PaginationViewModel<PhotoViewModel> { PageInfo = pageInfo, Items = photos };
 
-                PaginationViewModel<PhotoViewModel> pagedPhotos =
-                    new PaginationViewModel<PhotoViewModel> { PageInfo = pageInfo, Items = photos };
-
-                return Json(pagedPhotos, JsonRequestBehavior.AllowGet);
-            }
-
-            IEnumerable<PhotoViewModel> photos2 = photoService.GetByUserId(userId, 0, ImagesOnPage * page)
-                .Select(p => p.ToPhotoViewModel());
-
-            PaginationViewModel<PhotoViewModel> pagedPhotos2 =
-                new PaginationViewModel<PhotoViewModel> { PageInfo = pageInfo, Items = photos2 };
-
-            //return View("Index", pagedPhotos2);
-            return new EmptyResult();
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ShowImage()

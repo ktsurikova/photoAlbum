@@ -3,7 +3,7 @@
 @model MvcPL.Models.PhotoDetailsViewModel
 @Styles.Render("~/Content/css")
 
-<div class="container" style="overflow: hidden">
+<div class="" style="overflow: hidden">
     <div class="imageDetails">
         <img src="@Url.Action("ShowImage","Photos", new {id = Model.Id})" height="580px" width="auto">
     </div>
@@ -22,7 +22,7 @@
                 @Model.Owner.NameOwner
             </span>
 
-            @if (Model.CurrentUserId == Model.UserId)
+            @*@if (Model.CurrentUserId == Model.UserId)
             {
                 <div class="col-1" style="float: right">
                     <a href="@Url.Action("DeletePhoto", "Photos", new {photoId = Model.Id})">
@@ -30,7 +30,7 @@
                     </a>
                 </div>
 
-            }
+            }*@
 
 
 
@@ -68,7 +68,7 @@
                        data-content="Sign in to make your opinion count">
                         <i class="icon ion-android-favorite-outline" style="font-size: 24px;"></i>
                     </a>
-                    <span class="align-top">@Model.NumberOfLikes</span>
+                    <span class="align-text-bottom">@Model.NumberOfLikes</span>
                 }
                 else
                 {
@@ -88,7 +88,7 @@
                         </a>
                     }
 
-                    <span class="align-top">@Model.NumberOfLikes</span>
+                    <span class="align-text-bottom">@Model.NumberOfLikes</span>
                 }
             </div>
             @if (Model.UploadDate.Date == DateTime.Today)
@@ -126,100 +126,4 @@
 </div>
 
 @Scripts.Render("~/bundles/popover")
-<script>
-
-    $(document).ready(function () {
-        $('[data-toggle="popover"]').popover();
-    });
-
-    $('.popover-dismiss').popover({
-        trigger: 'focus'
-    });
-
-    //$('#like').click(function (event) {
-    //    event.preventDefault();
-
-    //    var url = $('#like').attr('href');
-    //    $.post(url,
-    //        function(response) {
-    //            $('#rating').empty();
-    //            $('#rating').append(response);
-    //        });
-    //});
-
-    //$('#dislike').click(function (event) {
-    //    event.preventDefault();
-
-    //    var url = $('#dislike').attr('href');
-    //    $.post(url,
-    //        function (response) {
-    //            $('#rating').empty();
-    //            $('#rating').append(response);
-    //        });
-    //});
-
-    $('#rating').on('click',
-        'a.rat',
-        function (event) {
-            event.preventDefault();
-            var url = $('.rat').attr('href');
-            $.get(url,
-                function (response) {
-                    $('#rating').empty();
-                    $('#rating').append(response);
-                });
-        });
-
-    $('#addCommentButton').click(function (event) {
-        event.preventDefault();
-        if ($('#addComment').val().trim().length != 0) {
-            var url = $('#addCommentButton').attr('href');
-            var data = {
-                PhotoId: $('#addCommentButton').attr('photo'),
-                Text: $('#addComment').val()
-            }
-            $.post(url,
-                data,
-                function (response) {
-                    $('#addComment').val('');
-                    $('#comments').empty();
-                    $('#comments').append(response);
-                });
-        }
-    });
-
-    //$('#loadMoreComment').click(function (event) {
-    //    event.preventDefault();
-    //    var url = $('#loadMoreComment').attr('href');
-    //    var data = {
-    //        id: $('#comments').attr('photo'),
-    //        page: $('#loadMoreComment').attr('page')
-    //    }
-    //    $.post(url,
-    //        data,
-    //        function (response) {
-    //            console.log(response);
-    //            $('#loadMoreComment').empty();
-    //            $('#comments').prepend(response);
-    //        });
-    //});
-
-    $('#comments').on('click',
-        'a.loadMoreComment',
-        function (event) {
-            event.preventDefault();
-            var url = $('#loadMoreComment').attr('href');
-            var data = {
-                id: $('#comments').attr('photo'),
-                page: $('#loadMoreComment').attr('page')
-            }
-            $.post(url,
-                data,
-                function (response) {
-                    $('#loadMoreComment').empty();
-                    $('#comments').prepend(response);
-                });
-        });
-
-</script>
 

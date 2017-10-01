@@ -18,7 +18,8 @@ else
             </a>            
             
             <div>
-                <a href="@Url.Action("PhotoDetails", "Photos", new {p.Id})" class="viewDetails">View Details</a>
+                <a data-fancybox data-type="ajax" data-src="@Url.Action("PhotoDetails", "Photos", new {p.Id})" 
+                   href="@Url.Action("PhotoDetails", "Photos", new {p.Id})" class="viewDetails">View Details</a>
             </div>
             
         </div>

@@ -58,8 +58,7 @@ namespace DAL.Concrete
         public IEnumerable<DalPhoto> GetByTag(string tag, int skip = 0, int take = 10)
         {
             var filter = Builders<Photo>.Filter.AnyEq(p => p.Tags, tag);
-            var filter2 = Builders<Photo>.Sort.Descending(p => p.UploadDate);
-            return modelContext.Photos.Find(filter).Sort(filter2).Skip(skip).Limit(take).ToList()
+            return modelContext.Photos.Find(filter).Skip(skip).Limit(take).ToList()
                 .Select(p => p.ToDalPhoto());
         }
 

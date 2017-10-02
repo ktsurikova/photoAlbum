@@ -113,3 +113,29 @@ $('#loadMoreForm').submit(function (event) {
         });
 });
 
+
+$('#AnotherPage').submit(function (event) {
+    event.preventDefault();
+
+    var url = $('#AnotherPage').attr('action');
+    var data = $('#AnotherPage').serialize();
+
+    $.post(url, data,
+        function (response) {
+            ShowImages(response);
+        });
+});
+
+function ShowImages(data) {
+    var i = 1;
+
+    $.each(data,
+        function (index, value) {
+            $('#image-' + i).attr('display', 'block');
+            $('#fullsize-' + i).attr('href', '/Photos/ShowImage/' + value.Id);
+            $('#img-' + i).attr('src', '/Photos/ShowImage/' + value.Id);
+            $('#details-' + i).attr('href', '/Photos/PhotoDetails/' + value.Id);
+            $('#details-' + i).attr('data-src', '/Photos/PhotoDetails/' + value.Id);
+            i++;
+        });
+}

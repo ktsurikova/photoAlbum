@@ -21,3 +21,17 @@
         i++;
     }
 </div>
+@using (Html.BeginForm("LoadMore", "Photos", new
+{
+    page = 2
+}, FormMethod.Post, new { @class = "", id = "AnotherPage" }))
+{
+    @Html.AntiForgeryToken()
+    <button class="btn my-2 my-sm-0 signUpButton" id="buttonAnotherPage" type="submit">Load more</button>
+}
+
+@*<script>
+    
+
+</script>*@
+

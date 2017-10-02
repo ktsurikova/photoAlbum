@@ -26,11 +26,16 @@ namespace MvcPL.Controllers
 
         public ActionResult Index(int page = 1)
         {
-            PhotoPageInfo pageInfo = new PhotoPageInfo { PageNumber = page, PageSize = ImagesOnPage, Tag = string.Empty, 
-                TotalItems = photoService.CountByTag(string.Empty) };
-            IEnumerable<PhotoViewModel> photos = photoService.GetAll(0, ImagesOnPage*page)
-                .Select(p=>p.ToPhotoViewModel());
-            return View(new PaginationViewModel<PhotoViewModel> {PageInfo = pageInfo, Items = photos});
+            PhotoPageInfo pageInfo = new PhotoPageInfo
+            {
+                PageNumber = page,
+                PageSize = ImagesOnPage,
+                Tag = string.Empty,
+                TotalItems = photoService.CountByTag(string.Empty)
+            };
+            IEnumerable<PhotoViewModel> photos = photoService.GetAll(0, ImagesOnPage * page)
+                .Select(p => p.ToPhotoViewModel());
+            return View(new PaginationViewModel<PhotoViewModel> { PageInfo = pageInfo, Items = photos });
         }
 
         public ActionResult Find(string term)
@@ -38,11 +43,11 @@ namespace MvcPL.Controllers
             IEnumerable<string> tags = photoService.FindTags(term);
 
             var projection = from t in tags
-                select new
-                {
-                    label = t,
-                    value = t
-                };
+                             select new
+                             {
+                                 label = t,
+                                 value = t
+                             };
             if (Request.IsAjaxRequest())
             {
                 return Json(projection.ToList(), JsonRequestBehavior.AllowGet);
@@ -71,13 +76,33 @@ namespace MvcPL.Controllers
                 return Json(pagedPhotos, JsonRequestBehavior.AllowGet);
             }
 
-            IEnumerable<PhotoViewModel> photos2 = photoService.GetByTag(tag, 0, ImagesOnPage*page)
+            IEnumerable<PhotoViewModel> photos2 = photoService.GetByTag(tag, 0, ImagesOnPage * page)
                 .Select(p => p.ToPhotoViewModel());
 
             PaginationViewModel<PhotoViewModel> pagedPhotos2 =
-                new PaginationViewModel<PhotoViewModel> {PageInfo = pageInfo, Items = photos2};
+                new PaginationViewModel<PhotoViewModel> { PageInfo = pageInfo, Items = photos2 };
 
             return View("Index", pagedPhotos2);
+        }
+
+        public ActionResult LoadMore(string tag = "", int page = 1)
+        {
+            PhotoPageInfo pageInfo = new PhotoPageInfo
+            {
+                PageNumber = page,
+                PageSize = ImagesOnPage,
+                Tag = tag,
+                TotalItems = photoService.CountByTag(tag)
+            };
+
+            IEnumerable<PhotoViewModel> photos = photoService.GetByTag(tag, pageInfo.Skip, pageInfo.PageSize)
+                .Select(p => p.ToPhotoViewModel());
+
+            //PaginationViewModel<PhotoViewModel> pagedPhotos =
+            //    new PaginationViewModel<PhotoViewModel> { PageInfo = pageInfo, Items = photos };
+
+            return Json(photos, JsonRequestBehavior.AllowGet);
+
         }
 
 
@@ -104,7 +129,7 @@ namespace MvcPL.Controllers
             IEnumerable<CommentViewModel> comments = photoService.GetCommentsByPhotoId(id, 0, CommentOnPage)
                 .Select(p => p.ToCommentViewModel());
 
-            ViewBag.Comments = new PaginationViewModel<CommentViewModel> {PageInfo = pageInfo, Items = comments};
+            ViewBag.Comments = new PaginationViewModel<CommentViewModel> { PageInfo = pageInfo, Items = comments };
 
             return PartialView("_PhotoDetails", photo);
         }
@@ -133,18 +158,18 @@ namespace MvcPL.Controllers
         {
             int userId = accountService.GetUserByLogin(User.Identity.Name).Id;
             photoService.AddComment(model.ToBllComment(userId, User.Identity.Name));
-            return RedirectToAction("LoadMoreComment", new {page = 0, id = model.PhotoId});
+            return RedirectToAction("LoadMoreComment", new { page = 0, id = model.PhotoId });
         }
 
         public ActionResult LoadMoreComment(int page, int id)
         {
             PageInfo pageInfo = new PageInfo
             {
-                PageNumber = page+1,
+                PageNumber = page + 1,
                 PageSize = CommentOnPage,
                 TotalItems = photoService.CountCommentByPhotoId(id)
             };
-            IEnumerable<CommentViewModel> comments = photoService.GetCommentsByPhotoId(id, 
+            IEnumerable<CommentViewModel> comments = photoService.GetCommentsByPhotoId(id,
                 pageInfo.Skip, pageInfo.PageSize).Select(p => p.ToCommentViewModel());
 
             var model = new PaginationViewModel<CommentViewModel> { PageInfo = pageInfo, Items = comments };
@@ -157,6 +182,6 @@ namespace MvcPL.Controllers
             photoService.Delete(photoId);
             return RedirectToAction("Index");
         }
-    
+
     }
 }

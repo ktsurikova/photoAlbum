@@ -3,10 +3,10 @@
 
 @foreach (var p in Model.Items)
 {
-    <div id="image" class="col-lg-4 col-md-6">
-        
+    <div id="image" class="col-lg-4 col-md-6 col-sm-12 col-12">
+
         <a href="@Url.Action("ShowImage", "Photos", new {p.Id})" data-type="image" data-fancybox="images">
-            <img src="@Url.Action("ShowImage", "Photos", new {p.Id})" class="viewImage"/>
+            <img src="@Url.Action("ShowImage", "Photos", new {p.Id})" class="viewImage" />
         </a>
 
         <div>

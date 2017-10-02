@@ -43,6 +43,9 @@
     margin: auto;
     margin-top: 50px;
     overflow: hidden;
+    min-width: 440px;
+    overflow-y: hidden;
+    overflow-x: auto;
     /*height: 100%;*/
 }
 
@@ -64,6 +67,17 @@
     #image:hover {
         opacity: 0.7;
     }
+
+.image {
+    float: left;
+    padding-bottom: 30px;
+    text-align: center;
+    opacity: 1;
+}
+
+.image:hover {
+    opacity: 0.7;
+}
 
 .appearence {
     display: none;
@@ -356,10 +370,11 @@
 .viewImage {
     display: block;
     height: 350px;
-    max-width: 340px;
+    max-width: 100%;
     text-align: center;
     margin: auto;
 }
+
 .container-body {
     margin-bottom: 50px;
 }

@@ -14,7 +14,10 @@
 
 @section body{
     <div class="container container-body">
-        <div class="images" id="images">
+        
+        @Html.Partial("_ImageGallery", Model.Items)
+
+        @*<div class="images" id="images">
             @if (emptySearch)
             {
                 <div class="emptySearch">Sorry, there are no results for your search</div>
@@ -29,7 +32,7 @@
             {
                 @Html.Partial("_LoadMore", Model)
             }
-        </div>
+        </div>*@
     </div>
 }
 

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<MvcPL.Models.PhotoViewModel>
+@{
+    int i = 1;
+}
+
+<div class="images" id="images">
+    @foreach (var p in Model)
+    {
+        <div id="image-@i" class="col-lg-4 col-md-6 col-sm-12 col-12 image">
+
+            <a id="fullsize-@i" href="@Url.Action("ShowImage", "Photos", new {p.Id})" data-type="image" data-fancybox="images">
+                <img id="img-@i" src="@Url.Action("ShowImage", "Photos", new {p.Id})" class="viewImage" />
+            </a>
+
+            <div>
+                <a id="details-@i" data-fancybox data-type="ajax" data-src="@Url.Action("PhotoDetails", "Photos", new {p.Id})"
+                   href="@Url.Action("PhotoDetails", "Photos", new {p.Id})" class="viewDetails">View Details</a>
+            </div>
+
+        </div>
+        i++;
+    }
+</div>

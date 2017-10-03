@@ -26,16 +26,42 @@ namespace MvcPL.Controllers
 
         public ActionResult Index(int page = 1)
         {
-            PhotoPageInfo pageInfo = new PhotoPageInfo
+            //PhotoPageInfo pageInfo = new PhotoPageInfo
+            //{
+            //    PageNumber = page,
+            //    PageSize = ImagesOnPage,
+            //    Tag = string.Empty,
+            //    TotalItems = photoService.CountByTag(string.Empty),
+            //    UrlPart = Url.Action("LoadMore", "Photos", new {tag = ""})
+            //};
+
+            PageInfo pageInfo = new PageInfo
             {
                 PageNumber = page,
                 PageSize = ImagesOnPage,
-                Tag = string.Empty,
-                TotalItems = photoService.CountByTag(string.Empty)
+                TotalItems = photoService.CountByTag(string.Empty),
+                UrlPart = Url.Action("LoadMore", "Photos", new { tag = "" })
             };
-            IEnumerable<PhotoViewModel> photos = photoService.GetAll(0, ImagesOnPage * page)
-                .Select(p => p.ToPhotoViewModel());
-            return View(new PaginationViewModel<PhotoViewModel> { PageInfo = pageInfo, Items = photos });
+
+            IEnumerable<int> photosIds = photoService.GetAll(0, pageInfo.PageSize)
+                .Select(p => p.Id);
+
+            List<ImageViewModel> photos = new List<ImageViewModel>(photosIds.Count());
+            foreach (var id in photosIds)
+            {
+                photos.Add(new ImageViewModel()
+                {
+                    ImageUrl = ToImageUrl(id),
+                    ImageDetailsUrl = ToImageDetailsUrl(id)
+                });
+            }
+
+            return View(new PaginationViewModel<ImageViewModel> {Items = photos, PageInfo = pageInfo});
+
+            //IEnumerable<PhotoViewModel> photos = photoService.GetAll(0, ImagesOnPage * page)
+            //    .Select(p => p.ToPhotoViewModel());
+
+            //return View(new PaginationViewModel<PhotoViewModel> { PageInfo = pageInfo, Items = photos });
         }
 
         public ActionResult Find(string term)
@@ -57,52 +83,99 @@ namespace MvcPL.Controllers
 
         public ActionResult Search(string tag = "", int page = 1)
         {
-            PhotoPageInfo pageInfo = new PhotoPageInfo
+            //PhotoPageInfo pageInfo = new PhotoPageInfo
+            //{
+            //    PageNumber = page,
+            //    PageSize = ImagesOnPage,
+            //    Tag = tag,
+            //    TotalItems = photoService.CountByTag(tag)
+            //};
+
+            //if (Request.IsAjaxRequest())
+            //{
+            //    IEnumerable<PhotoViewModel> photos = photoService.GetByTag(tag, pageInfo.Skip, pageInfo.PageSize)
+            //        .Select(p => p.ToPhotoViewModel());
+
+            //    PaginationViewModel<PhotoViewModel> pagedPhotos =
+            //        new PaginationViewModel<PhotoViewModel> { PageInfo = pageInfo, Items = photos };
+
+            //    return Json(pagedPhotos, JsonRequestBehavior.AllowGet);
+            //}
+
+            //IEnumerable<PhotoViewModel> photos2 = photoService.GetByTag(tag, 0, ImagesOnPage * page)
+            //    .Select(p => p.ToPhotoViewModel());
+
+            //PaginationViewModel<PhotoViewModel> pagedPhotos2 =
+            //    new PaginationViewModel<PhotoViewModel> { PageInfo = pageInfo, Items = photos2 };
+
+            //return View("Index"); // pagedPhotos2);
+
+            PageInfo pageInfo = new PageInfo
             {
                 PageNumber = page,
                 PageSize = ImagesOnPage,
-                Tag = tag,
-                TotalItems = photoService.CountByTag(tag)
+                TotalItems = photoService.CountByTag(tag),
+                UrlPart = Url.Action("LoadMore", "Photos", new { tag })
             };
 
-            if (Request.IsAjaxRequest())
+            IEnumerable<int> photosIds = photoService.GetByTag(tag, pageInfo.Skip, pageInfo.PageSize)
+                .Select(p => p.Id);
+
+            List<ImageViewModel> photos = new List<ImageViewModel>(photosIds.Count());
+            foreach (var id in photosIds)
             {
-                IEnumerable<PhotoViewModel> photos = photoService.GetByTag(tag, pageInfo.Skip, pageInfo.PageSize)
-                    .Select(p => p.ToPhotoViewModel());
-
-                PaginationViewModel<PhotoViewModel> pagedPhotos =
-                    new PaginationViewModel<PhotoViewModel> { PageInfo = pageInfo, Items = photos };
-
-                return Json(pagedPhotos, JsonRequestBehavior.AllowGet);
+                photos.Add(new ImageViewModel()
+                {
+                    ImageUrl = ToImageUrl(id),
+                    ImageDetailsUrl = ToImageDetailsUrl(id)
+                });
             }
 
-            IEnumerable<PhotoViewModel> photos2 = photoService.GetByTag(tag, 0, ImagesOnPage * page)
-                .Select(p => p.ToPhotoViewModel());
+            PaginationViewModel<ImageViewModel> pagedPhotos =
+                new PaginationViewModel<ImageViewModel> { PageInfo = pageInfo, Items = photos };
 
-            PaginationViewModel<PhotoViewModel> pagedPhotos2 =
-                new PaginationViewModel<PhotoViewModel> { PageInfo = pageInfo, Items = photos2 };
+            return Json(pagedPhotos, JsonRequestBehavior.AllowGet);
 
-            return View("Index", pagedPhotos2);
         }
 
         public ActionResult LoadMore(string tag = "", int page = 1)
         {
-            PhotoPageInfo pageInfo = new PhotoPageInfo
+            PageInfo pageInfo = new PageInfo
             {
                 PageNumber = page,
                 PageSize = ImagesOnPage,
-                Tag = tag,
-                TotalItems = photoService.CountByTag(tag)
+                TotalItems = photoService.CountByTag(tag),
+                UrlPart = Url.Action("LoadMore", "Photos", new {tag})
             };
 
-            IEnumerable<PhotoViewModel> photos = photoService.GetByTag(tag, pageInfo.Skip, pageInfo.PageSize)
-                .Select(p => p.ToPhotoViewModel());
+            IEnumerable<int> photosIds = photoService.GetByTag(tag, pageInfo.Skip, pageInfo.PageSize)
+                .Select(p => p.Id);
 
-            //PaginationViewModel<PhotoViewModel> pagedPhotos =
-            //    new PaginationViewModel<PhotoViewModel> { PageInfo = pageInfo, Items = photos };
+            List<ImageViewModel> photos = new List<ImageViewModel>(photosIds.Count());
+            foreach (var id in photosIds)
+            {
+                photos.Add(new ImageViewModel()
+                {
+                    ImageUrl = ToImageUrl(id),
+                    ImageDetailsUrl = ToImageDetailsUrl(id)
+                });
+            }
 
-            return Json(photos, JsonRequestBehavior.AllowGet);
+            PaginationViewModel<ImageViewModel> pagedPhotos =
+                new PaginationViewModel<ImageViewModel> { PageInfo = pageInfo, Items = photos };
 
+            return Json(pagedPhotos, JsonRequestBehavior.AllowGet);
+
+        }
+
+        private string ToImageUrl(int id)
+        {
+            return Url.Action("ShowImage", "Photos", new {id});
+        }
+
+        private string ToImageDetailsUrl(int id)
+        {
+            return Url.Action("PhotoDetails", "Photos", new { id });
         }
 
 

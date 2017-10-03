@@ -1,37 +1,63 @@
-﻿@model IEnumerable<MvcPL.Models.PhotoViewModel>
+﻿@model MvcPL.Models.PaginationViewModel<MvcPL.Models.ImageViewModel>
 @{
     int i = 1;
 }
 
 <div class="images" id="images">
-    @foreach (var p in Model)
+    @foreach (var p in Model.Items)
     {
         <div id="image-@i" class="col-lg-4 col-md-6 col-sm-12 col-12 image">
 
-            <a id="fullsize-@i" href="@Url.Action("ShowImage", "Photos", new {p.Id})" data-type="image" data-fancybox="images">
-                <img id="img-@i" src="@Url.Action("ShowImage", "Photos", new {p.Id})" class="viewImage" />
+            <a id="fullsize-@i" href="@p.ImageUrl" data-type="image" data-fancybox="images">
+                <img id="img-@i" src="@p.ImageUrl" class="viewImage" />
             </a>
 
             <div>
-                <a id="details-@i" data-fancybox data-type="ajax" data-src="@Url.Action("PhotoDetails", "Photos", new {p.Id})"
-                   href="@Url.Action("PhotoDetails", "Photos", new {p.Id})" class="viewDetails">View Details</a>
+                <a id="details-@i" data-fancybox data-type="ajax" data-src="@p.ImageDetailsUrl"
+                   href="@p.ImageDetailsUrl" class="viewDetails">View Details</a>
             </div>
 
         </div>
         i++;
     }
 </div>
-@using (Html.BeginForm("LoadMore", "Photos", new
-{
-    page = 2
-}, FormMethod.Post, new { @class = "", id = "AnotherPage" }))
-{
-    @Html.AntiForgeryToken()
-    <button class="btn my-2 my-sm-0 signUpButton" id="buttonAnotherPage" type="submit">Load more</button>
-}
-
-@*<script>
+<div id="listOfPages">
     
+    @*<a href="#" onclick="GetImages('@Model.PageInfo.UrlPart', 1)" class="btn signUpButton hide" id="previous">
+        <i class="icon ion-ios-arrow-left" style="font-size: 24px;"></i>
+    </a>*@
+    @{
+        int j;
+    }
 
-</script>*@
+    @*<a id="page1" href="#" class="" onclick="GetImages('@Model.PageInfo.UrlPart', 1)">
+        1
+    </a>*@
 
+    @for (j = 0; j < Model.PageInfo.TotalPages && j < 5; j++)
+    {
+        <a id="page@(j + 1)" href="#" onclick="GetImages('@Model.PageInfo.UrlPart', @(j + 1))">
+            @(j + 1)
+        </a>
+    }
+    @while (j < 5)
+    {
+        <a id="page@(j + 1)" href="#" onclick="" class="hide"></a>
+        j++;
+    }
+
+    @*@if (Model.PageInfo.TotalPages >= 2)
+    {
+        <a href="#" onclick="GetImages('@Model.PageInfo.UrlPart', 2)" class="btn signUpButton" id="next">
+            <i class="icon ion-ios-arrow-right" style="font-size: 18px;"></i>
+        </a>
+    }
+    else
+    {
+        <a href="#" onclick="" class="btn signUpButton hide" id="next">
+            <i class="icon ion-ios-arrow-right" style="font-size: 18px;"></i>
+        </a>
+    }*@
+
+
+</div>

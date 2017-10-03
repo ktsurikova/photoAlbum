@@ -12,5 +12,6 @@ namespace MvcPL.Models
         public int TotalItems { get; set; }
         public int TotalPages => (int)Math.Ceiling((decimal)TotalItems / PageSize);
         public int Skip => (PageNumber - 1) * PageSize;
+        public string UrlPart { get; set; }
     }
 }

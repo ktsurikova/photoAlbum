@@ -249,6 +249,7 @@
     <Compile Include="Models\AddCommentViewModel.cs" />
     <Compile Include="Models\CommentViewModel.cs" />
     <Compile Include="Models\EditProfileViewModel.cs" />
+    <Compile Include="Models\ImageViewModel.cs" />
     <Compile Include="Models\pagination\PageInfo.cs" />
     <Compile Include="Models\pagination\PaginationViewModel.cs" />
     <Compile Include="Models\PhotoDetailsViewModel.cs" />

@@ -11,9 +11,22 @@ $(function () {
     });
 });
 
+//function onSelected(data) {
+//    $('#loadMore').empty();
+//    $('#images').empty();
+//    var url = '/Photos/Search';
+//    var dataSend = {
+//        tag: data
+//    };
+//    $.post(
+//        url,
+//        dataSend,
+//        function (response) {
+//            DisplayImages(response);
+//        });
+//}
+
 function onSelected(data) {
-    $('#loadMore').empty();
-    $('#images').empty();
     var url = '/Photos/Search';
     var dataSend = {
         tag: data
@@ -22,7 +35,7 @@ function onSelected(data) {
         url,
         dataSend,
         function (response) {
-            DisplayImages(response);
+            ShowImagesAndPagination(response);
         });
 }
 
@@ -52,7 +65,7 @@ function DisplayImages(data) {
                 link.append(
                     $('<img />').attr({
                         'src': '/Photos/ShowImage/' + value.Id,
-                        'class':'viewImage'
+                        'class': 'viewImage'
                     })
                 ).appendTo(imdiv);
 
@@ -114,28 +127,68 @@ $('#loadMoreForm').submit(function (event) {
 });
 
 
-$('#AnotherPage').submit(function (event) {
+
+
+
+
+
+
+
+function GetImages(url, page) {
     event.preventDefault();
 
-    var url = $('#AnotherPage').attr('action');
-    var data = $('#AnotherPage').serialize();
-
+    var data = {
+        page: page
+    };
     $.post(url, data,
         function (response) {
             ShowImages(response);
         });
-});
+}
+
+function ShowImagesAndPagination(data) {
+
+    ShowImages(data);
+    ListOfPages(data.PageInfo);
+    //$('#listOfPages').empty();
+    //for (var i = 0; i < data.PageInfo.TotalPages; i++) {
+    //    $('#listOfPages').append('<a href="#" onclick="GetIamges(' +
+    //        data.PageInfo.UrlPart +
+    //        ', ' +
+    //        (i + 1) +
+    //        ')">' +
+    //        (i + 1) +
+    //        '</a>');
+    //}
+}
+
+function ListOfPages(data) {
+    var i;
+    for ( i = 1; i <= data.TotalPages; i++) {
+        $('#page' + i).attr('onclick', 'GetImages(\'' + data.UrlPart + '\', ' + (i) + ')');
+        $('#page' + i).show();
+    }
+    while (i < 5) {
+        $('#page' + i).hide();
+        i++;
+    }
+}
+
 
 function ShowImages(data) {
     var i = 1;
 
-    $.each(data,
+    $.each(data.Items,
         function (index, value) {
-            $('#image-' + i).attr('display', 'block');
-            $('#fullsize-' + i).attr('href', '/Photos/ShowImage/' + value.Id);
-            $('#img-' + i).attr('src', '/Photos/ShowImage/' + value.Id);
-            $('#details-' + i).attr('href', '/Photos/PhotoDetails/' + value.Id);
-            $('#details-' + i).attr('data-src', '/Photos/PhotoDetails/' + value.Id);
+            $('#image-' + i).show();
+            $('#fullsize-' + i).attr('href', value.ImageUrl);
+            $('#img-' + i).attr('src', value.ImageUrl);
+            $('#details-' + i).attr('href', value.ImageDetailsUrl);
+            $('#details-' + i).attr('data-src', value.ImageDetailsUrl);
             i++;
         });
+
+    for (var j = i; j <= data.PageInfo.PageSize; j++) {
+        $('#image-' + j).hide();
+    }
 }

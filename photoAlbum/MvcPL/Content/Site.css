@@ -378,3 +378,13 @@
 .container-body {
     margin-bottom: 50px;
 }
+
+.hide {
+    display: none !important;
+}
+.show {
+    display: block !important;
+}
+.activeLink {
+    background-color: #28a745;
+}

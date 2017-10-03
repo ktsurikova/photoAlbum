@@ -1,5 +1,6 @@
 ﻿@using MvcPL.Models
-@model PaginationViewModel<PhotoViewModel>
+@*@model PaginationViewModel<PhotoViewModel>*@
+@model PaginationViewModel<ImageViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -15,7 +16,7 @@
 @section body{
     <div class="container container-body">
         
-        @Html.Partial("_ImageGallery", Model.Items)
+        @Html.Partial("_ImageGallery", Model)
 
         @*<div class="images" id="images">
             @if (emptySearch)

@@ -56,7 +56,7 @@ namespace DAL
                 UploadDate = photo.UploadDate,
                 UserId = photo.UserId,
                 UserLikes = photo.UserLikes
-            };
+    };
         }
 
         public static Photo ToOrmPhoto(this DalPhoto photo)

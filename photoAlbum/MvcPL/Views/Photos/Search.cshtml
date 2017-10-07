@@ -1,0 +1,75 @@
+﻿@using MvcPL.Models
+@*@model PaginationViewModel<PhotoViewModel>*@
+@model PaginationViewModel<ImageViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool emptySearch = Model.PageInfo.TotalItems == 0 || (!Model.Items.Any());
+}
+
+@section SearchForm
+{
+    @Html.Partial("_SearchForm")
+}
+
+@section body{
+    <div class="container container-body">
+
+        @{
+            int i = 1;
+        }
+
+        <div class="images" id="images">
+            @foreach (var p in Model.Items)
+            {
+                <div id="image-@i" class="col-lg-4 col-md-6 col-sm-12 col-12 image">
+
+                    <a id="fullsize-@i" href="@p.ImageUrl" data-type="image" data-fancybox="images">
+                        <img id="img-@i" src="@p.ImageUrl" class="viewImage" />
+                    </a>
+
+                    <div>
+                        <a id="details-@i" data-fancybox data-type="ajax" data-src="@p.ImageDetailsUrl"
+                           href="@p.ImageDetailsUrl" class="viewDetails">View Details</a>
+                    </div>
+
+                </div>
+                i++;
+            }
+        </div>
+        <div id="listOfPages">
+
+            @{
+                int j;
+                bool amp = Model.PageInfo.UrlPart.Contains("tag");
+                    
+            }
+
+            @for (j = 0; j < Model.PageInfo.TotalPages && j < 5; j++)
+            {
+                if (amp)
+                {
+                    <a id="page@(j + 1)" href="@Model.PageInfo.UrlPart&page=@(j + 1)" page="@(j + 1)" class="anotherPage">
+                        @(j + 1)
+                    </a>
+                }
+                else
+                {
+                    <a id="page@(j + 1)" href="@Model.PageInfo.UrlPart?page=@(j + 1)" page="@(j + 1)" class="anotherPage">
+                        @(j + 1)
+                    </a>
+                }
+
+            }
+            @while (j < 5)
+            {
+                <a id="page@(j + 1)" href="#" class="hide anotherPage"></a>
+                j++;
+            }
+
+        </div>
+
+    </div>
+}
+

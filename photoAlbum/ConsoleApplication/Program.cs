@@ -60,7 +60,7 @@ namespace ConsoleApplication
             ////    Console.WriteLine(u);
             ////}
             
-            PhotoRepository rep = new PhotoRepository();
+            //PhotoRepository rep = new PhotoRepository();
             //rep.AddTag(1, "#ballet");
             //rep.AddTag(2, "#ballet");
             //rep.AddTag(1, "#steven");
@@ -139,6 +139,8 @@ namespace ConsoleApplication
             ////p.Tags = new List<string>() {"#steven", "#ballet", "#muscular", "#royalballet"};
             //p.UploadDate = new DateTime(2017, 9, 21, 18, 30, 30);
             //rep.Update(p);
+
+            int[] ar = new int[4];
 
             Console.ReadKey();
         }

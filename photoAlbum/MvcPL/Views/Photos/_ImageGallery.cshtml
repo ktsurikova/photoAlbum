@@ -26,23 +26,24 @@
     @*<a href="#" onclick="GetImages('@Model.PageInfo.UrlPart', 1)" class="btn signUpButton hide" id="previous">
         <i class="icon ion-ios-arrow-left" style="font-size: 24px;"></i>
     </a>*@
+
     @{
         int j;
     }
 
-    @*<a id="page1" href="#" class="" onclick="GetImages('@Model.PageInfo.UrlPart', 1)">
+    @*<a id="page1"  href="@Model.PageInfo.UrlPart?page=1" page="1" class="anotherPage">
         1
     </a>*@
 
     @for (j = 0; j < Model.PageInfo.TotalPages && j < 5; j++)
     {
-        <a id="page@(j + 1)" href="#" onclick="GetImages('@Model.PageInfo.UrlPart', @(j + 1))">
+        <a id="page@(j + 1)" href="@Model.PageInfo.UrlPart?page=@(j + 1)" page="@(j + 1)" class="anotherPage">
             @(j + 1)
         </a>
     }
     @while (j < 5)
     {
-        <a id="page@(j + 1)" href="#" onclick="" class="hide"></a>
+        <a id="page@(j + 1)" href="#" class="hide anotherPage"></a>
         j++;
     }
 

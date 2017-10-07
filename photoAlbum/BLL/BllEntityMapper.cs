@@ -73,7 +73,7 @@ namespace BLL
                 Tags = photo.Tags,
                 UploadDate = photo.UploadDate,
                 UserId = photo.UserId,
-                UserLikes = photo.UserLikes
+                UserLikes = photo.UserLikes,
             };
         }
         #endregion

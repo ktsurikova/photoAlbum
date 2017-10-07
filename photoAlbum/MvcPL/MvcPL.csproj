@@ -297,6 +297,7 @@
     <Content Include="Views\Photos\_Comments.cshtml" />
     <Content Include="Views\Profile\_ProfilePhotos.cshtml" />
     <Content Include="Views\Photos\_ImageGallery.cshtml" />
+    <Content Include="Views\Photos\Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

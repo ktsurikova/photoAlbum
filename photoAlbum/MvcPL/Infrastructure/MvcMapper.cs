@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -15,7 +16,7 @@ namespace MvcPL.Infrastructure
             return new PhotoViewModel()
             {
                 Id = photo.Id,
-                Image = photo.Image
+                Image = photo.Image,
             };
         }
 
@@ -143,6 +144,31 @@ namespace MvcPL.Infrastructure
                 return new string[0];
             string[] splitedTags = tags.Split(' ');
             return splitedTags.Where(s => s.StartsWith("#"));
+        }
+
+        private static byte[] ResizeImage(byte[] img)
+        {
+            int largestSide = 300;
+            var bigImg = new Bitmap(new MemoryStream(img));
+            int width = bigImg.Width;
+            int height = bigImg.Height;
+            double scale;
+            if (width < height)
+            {
+                scale = (double)largestSide / height;
+                height = largestSide;
+                width = (int)(scale * width);
+            }
+            else
+            {
+                scale = (double)largestSide / width;
+                width = largestSide;
+                height = (int)(scale * height);
+            }
+
+            var smallImg = new Bitmap(bigImg, new Size(width, height));
+            var converter = new ImageConverter();
+            return (byte[])converter.ConvertTo(smallImg, typeof(byte[]));
         }
     }
 }

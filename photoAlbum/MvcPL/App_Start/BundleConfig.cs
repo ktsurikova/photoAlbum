@@ -34,6 +34,10 @@ namespace MvcPL.App_Start
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                 "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
+                "~/Scripts/angular.js").Include("~/Scripts/app.js")
+                .Include("~/Scripts/photo-list.component.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/Site.css")
                 .Include("~/Content/bootstrap.css").Include("~/Content/jquery.fancybox.css")
                 .Include("~/Content/ionicons.css"));

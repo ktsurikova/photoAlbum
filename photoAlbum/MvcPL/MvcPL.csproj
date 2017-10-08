@@ -211,7 +211,12 @@
     <Content Include="fonts\ionicons.eot" />
     <Content Include="fonts\ionicons.ttf" />
     <Content Include="fonts\ionicons.woff" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\angular.min.js.map" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Scripts\app.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />
@@ -226,6 +231,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\photo-list.component.js" />
     <Content Include="Scripts\photoDetails.js" />
     <Content Include="Scripts\popover.js" />
     <Content Include="Scripts\profilePhoto.js" />
@@ -298,6 +304,8 @@
     <Content Include="Views\Profile\_ProfilePhotos.cshtml" />
     <Content Include="Views\Photos\_ImageGallery.cshtml" />
     <Content Include="Views\Photos\Search.cshtml" />
+    <Content Include="Views\Photos\IndexAngular.cshtml" />
+    <None Include="Views\Photos\ImageGalleryAngular.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,29 @@
+﻿@using System.Web.Optimization
+@{
+    ViewBag.Title = "IndexAngular";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/angularjs")
+}
+
+@section body{
+
+    <div ng-app="imageGallery" style="clear: both">
+        <photo-list></photo-list>
+    </div>
+
+    @*<div ng-app="imageGallery" ng-controller="PhotoListController" class="container container-body images">
+        <div ng-repeat="photo in photos">
+            <div class="col-lg-4 col-md-6 col-sm-12 col-12 image">
+
+                <a id="fullsize" href="{{photo.ImageUrl}}" data-type="image" data-fancybox="images">
+                    <img id="img" src="{{photo.ImageUrl}}" class="viewImage" />
+                </a>
+
+            </div>
+        </div>
+    </div>*@
+}

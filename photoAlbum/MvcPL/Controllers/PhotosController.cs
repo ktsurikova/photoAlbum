@@ -25,6 +25,16 @@ namespace MvcPL.Controllers
             this.accountService = accountService;
         }
 
+        public ActionResult IndexAngular()
+        {
+            return View();
+        }
+
+        public ActionResult ShowImagesAngular()
+        {
+            return PartialView("ImageGalleryAngular");
+        }
+
         public ActionResult Index(int page = 1)
         {
             //PhotoPageInfo pageInfo = new PhotoPageInfo
@@ -169,12 +179,12 @@ namespace MvcPL.Controllers
             PaginationViewModel<ImageViewModel> pagedPhotos =
                 new PaginationViewModel<ImageViewModel> { PageInfo = pageInfo, Items = photos };
 
-            if (Request.IsAjaxRequest())
-            {
+            //if (Request.IsAjaxRequest())
+            //{
                 return Json(pagedPhotos, JsonRequestBehavior.AllowGet);
-            }
+            //}
 
-            return View("Search", pagedPhotos);
+            //return View("Search", pagedPhotos);
         }
 
         private string ToImageUrl(int id)

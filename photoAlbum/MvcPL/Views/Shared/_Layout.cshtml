@@ -14,7 +14,7 @@
 <body>
 
     <header>
-        <div class="container">
+        <div class="container" style="overflow: hidden">
             <div class="logo">Photoalbum</div>
             <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
                 @RenderSection("SearchForm", required: false)
@@ -25,7 +25,7 @@
     @RenderSection("body", required: false)
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/search")
+    @*@Scripts.Render("~/bundles/search")*@
     @RenderSection("scripts", required: false)
 
 </body>

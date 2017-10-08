@@ -1,0 +1,12 @@
+﻿
+<div class="container container-body images">
+    <div ng-repeat="photo in $ctrl.photos">
+        <div class="col-lg-4 col-md-6 col-sm-12 col-12 image">
+
+            <a id="fullsize" href="{{photo.ImageUrl}}" data-type="image" data-fancybox="images">
+                <img id="img" src="{{photo.ImageUrl}}" class="viewImage" />
+            </a>
+
+        </div>
+    </div>
+</div>

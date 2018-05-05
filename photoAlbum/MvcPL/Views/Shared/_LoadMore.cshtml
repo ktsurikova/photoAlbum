@@ -9,7 +9,7 @@
         page = Model.PageInfo.PageNumber + 1
     }, FormMethod.Post, new { @class = "", id = "loadMoreForm" }))
     {
-        @Html.AntiForgeryToken()
+        @*@Html.AntiForgeryToken()*@
         <button class="btn my-2 my-sm-0 signUpButton" id="buttonLoadMore" type="submit">Load more</button>
     }
 }

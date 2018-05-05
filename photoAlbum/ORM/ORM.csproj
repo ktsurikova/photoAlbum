@@ -60,6 +60,7 @@
     <Compile Include="Entities\Author.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Photo.cs" />
+    <Compile Include="Entities\ProfilePhoto.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="ModelContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

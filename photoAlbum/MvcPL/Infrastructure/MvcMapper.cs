@@ -40,7 +40,8 @@ namespace MvcPL.Infrastructure
             return new PhotoOwnerViewModel()
             {
                 NameOwner = user.Login,
-                ProfilePhotoOwner = user.ProfilePhoto
+                Url = user.ProfilePhoto?.Url,
+                ImageType = user.ProfilePhoto?.Type
             };
         }
 
@@ -61,7 +62,8 @@ namespace MvcPL.Infrastructure
                 Login = user.Login,
                 Name = user.Name,
                 Phone = user.Phone,
-                ProfilePhoto = user.ProfilePhoto
+                Url = user.ProfilePhoto?.Url,
+                ImageType = user.ProfilePhoto?.Type//user.ProfilePhoto
             };
         }
 
@@ -70,7 +72,8 @@ namespace MvcPL.Infrastructure
             return new ProfileInfoViewModel()
             {
                 Name = user.Name,
-                ProfilePhoto = user.ProfilePhoto
+                Url = user.ProfilePhoto?.Url,
+                ImageType = user.ProfilePhoto?.Type
             };
         }
 

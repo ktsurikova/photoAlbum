@@ -11,7 +11,9 @@ namespace DAL.Interface.Repository
     {
         void ChangeName(int userId, string newName);
         DalUser GetUserByLogin(string login);
+        DalUser GetUserByEmail(string email);
+        bool CheckIfUserExistsByEmail(string email);
         bool CheckIfUserExists(string login);
-        void ChangeProfilePhoto(int userId, byte[] newProfilePhoto);
+        //void ChangeProfilePhoto(int userId, byte[] newProfilePhoto);
     }
 }

@@ -36,8 +36,8 @@ namespace ORM.Entities
         public string Phone { get; set; }
 
         [BsonIgnoreIfNull]
-        [BsonElement(elementName: "image")]
-        public byte[] ProfilePhoto { get; set; }
+        [BsonElement(elementName: "picture")]
+        public ProfilePhoto ProfilePhoto { get; set; }
 
     }
 }

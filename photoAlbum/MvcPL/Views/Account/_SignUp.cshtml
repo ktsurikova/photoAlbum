@@ -5,7 +5,12 @@
     @using (Html.BeginForm("SignUp", "Account", FormMethod.Post,
                         new { }))
     {
-        @Html.AntiForgeryToken()
+        var d = TempData["error"];
+        if (!string.IsNullOrEmpty(d as string))
+        {
+            <p style="color: red">@d</p>
+        }
+        @*@Html.AntiForgeryToken()*@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(m => m.Login, new { @class = "" })
@@ -38,6 +43,17 @@
         <div class="form-group center">
             <div class=" center">
                 <input type="submit" class="btn btn-default signUpButton" value="Sign Up" />
+            </div>
+            <div style="margin-top: 10px">
+                <a href="@Url.Action("SignUpGoogle", "Account")" class="btn ml-auto my-2 my-sm-0 signUpButton"
+                   type="submit" style="padding-left: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
+                    <div style="border-radius: 3px;padding-top: 7px;padding-bottom:  8px;margin-right: 8px;width: 38px;background-color: white;display: inline-block;">
+                        <img src="~/Content/googleIcon.png" height="20px" />
+                    </div>
+                    <div style="display: inline-block">
+                        Sign up with Google
+                    </div>
+                </a>
             </div>
         </div>
     }

@@ -60,18 +60,26 @@ namespace DAL.Concrete
             return modelContext.Users.Find(u => u.Login == login).FirstOrDefault().ToDalUser();
         }
 
-        public bool CheckIfUserExists(string login)
+        public DalUser GetUserByEmail(string email)
         {
-            if (modelContext.Users.Find(u => u.Login == login).FirstOrDefault() == null)
-                return false;
-            return true;
+            return modelContext.Users.Find(u => u.Email == email).FirstOrDefault().ToDalUser();
         }
 
-        public void ChangeProfilePhoto(int userId, byte[] newProfilePhoto)
+        public bool CheckIfUserExistsByEmail(string email)
         {
-            var updatePhoto = Builders<User>.Update.Set(p => p.ProfilePhoto, newProfilePhoto);
-            modelContext.Users.UpdateOne(p => p.Id == userId, updatePhoto,
-                new UpdateOptions() { IsUpsert = true });
+            return modelContext.Users.Find(u => u.Email == email).FirstOrDefault() != null;
         }
+
+        public bool CheckIfUserExists(string login)
+        {
+            return modelContext.Users.Find(u => u.Login == login).FirstOrDefault() != null;
+        }
+
+        //public void ChangeProfilePhoto(int userId, byte[] newProfilePhoto)
+        //{
+        //    var updatePhoto = Builders<User>.Update.Set(p => p.ProfilePhoto, newProfilePhoto);
+        //    modelContext.Users.UpdateOne(p => p.Id == userId, updatePhoto,
+        //        new UpdateOptions() { IsUpsert = true });
+        //}
     }
 }

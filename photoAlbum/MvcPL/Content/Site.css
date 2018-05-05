@@ -146,6 +146,19 @@
         color: white !important;
     }
 
+.googleSign {
+    margin-left: 5px;
+    margin-right: 15px;
+    border-color: #f8f9fa !important;
+    -webkit-appearance: none !important;
+    color: #495057;
+}
+
+.googleSign:hover {
+    border-color: #1e7e34 !important;
+    color: #495057 !important;
+}
+
 .fancybox-close-small {
     /*background-color: #2dcb74 !important;
     border-color: #2dcb74 !important;

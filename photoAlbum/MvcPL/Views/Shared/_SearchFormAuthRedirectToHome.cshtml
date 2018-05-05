@@ -2,7 +2,7 @@
 
 @using (Html.BeginForm("Search", "Photos", FormMethod.Post, new { @class = "form-inline" }))
 {
-    @Html.AntiForgeryToken()
+    @*@Html.AntiForgeryToken()*@
     @Html.TextBox("tag", "", new { @class = "form-control mr-sm-2", placeholder = "Search: #ballet" });
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 }

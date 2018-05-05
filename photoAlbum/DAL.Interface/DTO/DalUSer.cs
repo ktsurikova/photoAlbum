@@ -15,6 +15,6 @@ namespace DAL.Interface.DTO
         public string Email { get; set; }
         public string Password { get; set; }
         public string Phone { get; set; }
-        public byte[] ProfilePhoto { get; set; }
+        public DalProfilePhoto DalProfilePhoto { get; set; }
     }
 }

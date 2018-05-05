@@ -22,7 +22,7 @@ namespace BLL
                 Name = user.Name,
                 Password = user.Password,
                 Phone = user.Phone,
-                ProfilePhoto = user.ProfilePhoto,
+                DalProfilePhoto = user.ProfilePhoto?.ToDalProfilePhoto(),
                 Roles = user.Roles
             };
         }
@@ -37,12 +37,31 @@ namespace BLL
                 Name = user.Name,
                 Password = user.Password,
                 Phone = user.Phone,
-                ProfilePhoto = user.ProfilePhoto,
+                ProfilePhoto = user.DalProfilePhoto?.ToBllProfilePhoto(),
                 Roles = user.Roles
             };
         }
         #endregion
 
+        #region ProfilePhoto
+        public static DalProfilePhoto ToDalProfilePhoto(this BllProfilePhoto photo)
+        {
+            return new DalProfilePhoto()
+            {
+                Type = photo.Type,
+                Url = photo.Url
+            };
+        }
+
+        public static BllProfilePhoto ToBllProfilePhoto(this DalProfilePhoto photo)
+        {
+            return new BllProfilePhoto()
+            {
+                Type = photo.Type,
+                Url = photo.Url
+            };
+        }
+        #endregion
 
         #region Photo
         public static BllPhoto ToBllPhoto(this DalPhoto photo)

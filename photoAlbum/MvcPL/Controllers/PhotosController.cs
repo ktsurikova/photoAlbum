@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using BLL.Interface.Services;
 using MvcPL.Infrastructure;
 using MvcPL.Models;
+using MvcPL.Models.auth;
 
 namespace MvcPL.Controllers
 {
@@ -92,7 +93,7 @@ namespace MvcPL.Controllers
             photo.Owner = accountService.GetUserById(photo.UserId).ToPhotoOwnerViewModel();
             if (Request.IsAuthenticated)
             {
-                photo.CurrentUserId = accountService.GetUserByLogin(User.Identity.Name).Id;
+                photo.CurrentUserId = accountService.GetUserByLogin(User.Identity.GetClaims("Login")).Id;
             }
 
             PageInfo pageInfo = new PageInfo
@@ -112,7 +113,7 @@ namespace MvcPL.Controllers
         [Authorize]
         public ActionResult LikePhoto(int photoId)
         {
-            int userId = accountService.GetUserByLogin(User.Identity.Name).Id;
+            int userId = accountService.GetUserByLogin(User.Identity.GetClaims("Login")).Id;
             photoService.LikePhoto(userId, photoId);
             PhotoRatingViewModel photo = photoService.GetById(photoId).ToPhotoRatingViewModel();
             return PartialView("_LikePhoto", photo);
@@ -121,7 +122,7 @@ namespace MvcPL.Controllers
         [Authorize]
         public ActionResult DislikePhoto(int photoId)
         {
-            int userId = accountService.GetUserByLogin(User.Identity.Name).Id;
+            int userId = accountService.GetUserByLogin(User.Identity.GetClaims("Login")).Id;
             photoService.DislikePhoto(userId, photoId);
             PhotoRatingViewModel photo = photoService.GetById(photoId).ToPhotoRatingViewModel();
             return PartialView("_DislikePhoto", photo);
@@ -131,8 +132,8 @@ namespace MvcPL.Controllers
         [HttpPost]
         public ActionResult AddComment(AddCommentViewModel model)
         {
-            int userId = accountService.GetUserByLogin(User.Identity.Name).Id;
-            photoService.AddComment(model.ToBllComment(userId, User.Identity.Name));
+            int userId = accountService.GetUserByLogin(User.Identity.GetClaims("Login")).Id;
+            photoService.AddComment(model.ToBllComment(userId, User.Identity.GetClaims("Login")));
             return RedirectToAction("LoadMoreComment", new {page = 0, id = model.PhotoId});
         }
 

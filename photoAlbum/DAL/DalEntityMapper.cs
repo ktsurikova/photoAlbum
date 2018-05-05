@@ -21,7 +21,7 @@ namespace DAL
                 Name = user.Name,
                 Password = user.Password,
                 Phone = user.Phone,
-                ProfilePhoto = user.ProfilePhoto,
+                DalProfilePhoto = user.ProfilePhoto?.ToDalProfilePhoto(),
                 Roles = user.Roles
             };
         }
@@ -36,8 +36,28 @@ namespace DAL
                 Name = user.Name,
                 Password = user.Password,
                 Phone = user.Phone,
-                ProfilePhoto = user.ProfilePhoto,
+                ProfilePhoto = user.DalProfilePhoto?.ToOrmProfilePhoto(),
                 Roles = user.Roles
+            };
+        }
+        #endregion
+
+        #region ProfilePhoto
+        public static DalProfilePhoto ToDalProfilePhoto(this ProfilePhoto photo)
+        {
+            return new DalProfilePhoto()
+            {
+                Type = photo.Type,
+                Url = photo.Url
+            };
+        }
+
+        public static ProfilePhoto ToOrmProfilePhoto(this DalProfilePhoto photo)
+        {
+            return new ProfilePhoto()
+            {
+                Type = photo.Type,
+                Url = photo.Url
             };
         }
         #endregion

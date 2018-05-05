@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using BLL.Interface.Services;
 using MvcPL.Infrastructure;
 using MvcPL.Models;
+using MvcPL.Models.auth;
 
 namespace MvcPL.Controllers
 {
@@ -25,9 +26,9 @@ namespace MvcPL.Controllers
         public ActionResult Index()
         {
             ProfileViewModel profileViewModel = accountService.
-                GetUserByLogin(User.Identity.Name).ToProfileViewModel();
+                GetUserByLogin(User.Identity.GetClaims("Login")).ToProfileViewModel();
 
-            int userId = accountService.GetUserByLogin(User.Identity.Name).Id;
+            int userId = accountService.GetUserByLogin(User.Identity.GetClaims("Login")).Id;
 
             PageInfo pageInfo = new PageInfo
             {
@@ -44,7 +45,7 @@ namespace MvcPL.Controllers
 
         public ActionResult LoadMorePhotos(int page)
         {
-            int userId = accountService.GetUserByLogin(User.Identity.Name).Id;
+            int userId = accountService.GetUserByLogin(User.Identity.GetClaims("Login")).Id;
 
             PageInfo pageInfo = new PageInfo
             {
@@ -60,16 +61,18 @@ namespace MvcPL.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ShowImage()
-        {
-            return File(accountService.GetUserByLogin(User.Identity.Name).ProfilePhoto, "image/jpeg");
-        }
+        //public string ShowImage()
+        //{
+        //    return accountService.GetUserByLogin(User.Identity.GetClaims("Login")).ProfilePhoto.Url;
+        //    //return File(accountService.GetUserByLogin(User.Identity.GetClaims("Login")).ProfilePhoto.Url, "image/jpeg");
+        //}
 
-        [AllowAnonymous]
-        public ActionResult ShowProfilePhoto(int userId)
-        {
-            return File(accountService.GetUserById(userId).ProfilePhoto, "image/jpeg");
-        }
+        //[AllowAnonymous]
+        //public string ShowProfilePhoto(int userId)
+        //{
+        //    return accountService.GetUserById(userId).ProfilePhoto.Url;
+        //    //return File(accountService.GetUserById(userId).ProfilePhoto.Url, "image/jpeg");
+        //}
 
         public ActionResult UploadPhoto()
         {
@@ -79,21 +82,21 @@ namespace MvcPL.Controllers
         [HttpPost]
         public ActionResult UploadPhoto(UploadPhotoViewModel photo)
         {
-            photoService.Add(photo.ToBllPhoto(accountService.GetUserByLogin(User.Identity.Name).Id));
+            photoService.Add(photo.ToBllPhoto(accountService.GetUserByLogin(User.Identity.GetClaims("Login")).Id));
             return RedirectToAction("Index", "Profile");
         }
 
         public ActionResult EditProfile()
         {
             ProfileInfoViewModel profileViewModel = accountService.
-                GetUserByLogin(User.Identity.Name).ToProfileInfoViewModel();
+                GetUserByLogin(User.Identity.GetClaims("Login")).ToProfileInfoViewModel();
             return View("EditProfile", profileViewModel);
         }
 
         [HttpPost]
         public ActionResult EditPtofile(EditProfileViewModel model)
         {
-            int userId = accountService.GetUserByLogin(User.Identity.Name).Id;
+            int userId = accountService.GetUserByLogin(User.Identity.GetClaims("Login")).Id;
             accountService.EditeUserPtofile(userId, model.Name, model.ImageFile.ToByteArray());
             return RedirectToAction("Index", "Profile");
         }

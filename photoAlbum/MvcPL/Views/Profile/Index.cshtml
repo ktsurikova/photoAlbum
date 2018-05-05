@@ -19,13 +19,13 @@
 {
     <div class="container container-profile">
         <div class="profilePhoto col-lg-4 col-md-4">
-            @if (Model.ProfilePhoto == null)
+            @if (Model.Url == null)
             {
                 <img src="~/Content/default_photo.jpg" height="200px" width="auto" style="border-radius:10px">
             }
             else
             {
-                <img src="@Url.Action("ShowImage","Profile")" height="200px" width="auto" style="border-radius:10px">
+                <img src="@Model.GetUrlWithSize(200)" height="200px" width="auto" style="border-radius:10px">
             }
         </div>
         <div class="personalInfo col-lg-4 col-md-4">

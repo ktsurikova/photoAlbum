@@ -15,6 +15,6 @@ namespace BLL.Interface.Entities
         public string Email { get; set; }
         public string Password { get; set; }
         public string Phone { get; set; }
-        public byte[] ProfilePhoto { get; set; }
+        public BllProfilePhoto ProfilePhoto { get; set; }
     }
 }

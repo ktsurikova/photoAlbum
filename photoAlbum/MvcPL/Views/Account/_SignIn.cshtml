@@ -3,10 +3,15 @@
 
 <div class="loginForm">
     
-    @using (Html.BeginForm("SignIn", "Account", new {returnUrl = ViewBag.ReturnUrl}, FormMethod.Post,
-        new {id = "SignInForm"}))
+    @using (Html.BeginForm("SignIn", "Account", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
+                new { id = "SignInForm" }))
     {
-        @Html.AntiForgeryToken()
+        var d = TempData["error"];
+        if (!string.IsNullOrEmpty(d as string))
+        {
+            <p style="color: red">@d</p>
+        }
+    @*@Html.AntiForgeryToken()*@
         @Html.ValidationSummary(true, "", new {@class = "text-danger"})
         <div class="form-group">
             @Html.LabelFor(m => m.Login, new {@class = "", id = "loginLabel"})
@@ -25,6 +30,17 @@
         <div class="form-group center">
             <div class="center">
                 <input type="submit" id="signInButtonForm" class="btn btn-default signInButtonForm" value="Sign In"/>
+            </div>
+            <div style="margin-top: 10px">
+                <a href="@Url.Action("SignInGoogle", "Account", new {returnUrl = ViewBag.ReturnUrl})" class="btn ml-auto my-2 my-sm-0 signUpButton"
+                   type="submit" style="padding-left: 0px !important; padding-top: 0px !important; padding-bottom: 0px !important;">
+                    <div style="border-radius: 3px;padding-top: 7px;padding-bottom:  8px;margin-right: 8px;width: 38px;background-color: white;display: inline-block;">
+                        <img src="~/Content/googleIcon.png" height="20px"/>
+                    </div>
+                    <div style="display: inline-block">
+                        Sign in with Google
+                    </div>
+                </a>
             </div>
         </div>
     }

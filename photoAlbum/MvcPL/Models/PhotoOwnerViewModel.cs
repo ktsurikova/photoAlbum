@@ -8,6 +8,14 @@ namespace MvcPL.Models
     public class PhotoOwnerViewModel
     {
         public string NameOwner { get; set; }
-        public byte[] ProfilePhotoOwner { get; set; }
+        public string Url { get; set; }
+        public string ImageType { get; set; }
+
+        public string GetUrlWithSize(int size)
+        {
+            if (ImageType == "google")
+                return Url += $"?sz={size}";
+            return Url;
+        }
     }
 }

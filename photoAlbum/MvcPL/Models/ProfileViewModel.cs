@@ -11,6 +11,14 @@ namespace MvcPL.Models
         public string Name { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public byte[] ProfilePhoto { get; set; }
+        public string Url { get; set; }
+        public string ImageType { get; set; }
+
+        public string GetUrlWithSize(int size)
+        {
+            if (ImageType == "google")
+                return Url += $"?sz={size}";
+            return Url;
+        }
     }
 }

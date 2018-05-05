@@ -8,6 +8,14 @@ namespace MvcPL.Models
     public class ProfileInfoViewModel
     {
         public string Name { get; set; }
-        public byte[] ProfilePhoto { get; set; }
+        public string Url { get; set; }
+        public string ImageType { get; set; }
+
+        public string GetUrlWithSize(int size)
+        {
+            if (ImageType == "google")
+                return Url += $"?sz={size}";
+            return Url;
+        }
     }
 }

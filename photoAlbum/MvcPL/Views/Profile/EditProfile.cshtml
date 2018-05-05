@@ -29,7 +29,7 @@
             <div class="col-md-12">
                 <div class="labelCurrentPhoto">Current</div>
 
-                @if (Model.ProfilePhoto == null)
+                @if (Model.Url == null)
                 {
                     <div class="currentPhoto">
                         <img src="~/Content/default_photo.jpg" height="200px" width="auto" style="border-radius:10px">
@@ -39,7 +39,7 @@
                 else
                 {
                     <div class="currentPhoto">
-                        <img src="@Url.Action("ShowImage", "Profile", new {image = Model.ProfilePhoto})"
+                        <img src="@Model.GetUrlWithSize(200)"
                               height="200px" width="auto" style="border-radius: 10px">
                     </div>
                 }

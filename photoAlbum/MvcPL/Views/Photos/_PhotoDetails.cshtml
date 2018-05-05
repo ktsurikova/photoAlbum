@@ -9,9 +9,9 @@
     </div>
     <div class="infoDetails">
         <div class="ownerDetails">
-            @if (Model.Owner.ProfilePhotoOwner != null)
+            @if (Model.Owner.Url != null)
             {
-                <img src="@Url.Action("ShowProfilePhoto", "Profile", new {Model.UserId})" height="50px" width="auto" style="border-radius: 50%">
+                <img src="@Model.Owner.GetUrlWithSize(50)" height="50px" width="auto" style="border-radius: 50%">
             }
             else
             {

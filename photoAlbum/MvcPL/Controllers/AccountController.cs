@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using BLL.Interface.Services;
+using Microsoft.Owin.Security;
 using MvcPL.Models;
+using MvcPL.Models.auth;
 using MvcPL.Providers;
+using Newtonsoft.Json.Linq;
 
 namespace MvcPL.Controllers
 {
@@ -18,6 +24,8 @@ namespace MvcPL.Controllers
         {
             this.accountService = accountService;
         }
+
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
         [HttpGet]
         public ActionResult SignIn(string returnUrl, bool? fancybox)
@@ -33,9 +41,10 @@ namespace MvcPL.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (Membership.ValidateUser(viewModel.Login, viewModel.Password))
+                if (accountService.ValidateUser(viewModel.Login, viewModel.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(viewModel.Login, false);
+                    SetCookies(viewModel.Login, viewModel.Login, accountService.GetUserByLogin(viewModel.Login).Email, "forms");
+
                     if (Url.IsLocalUrl(returnUrl))
                     {
                         return Redirect(returnUrl);
@@ -54,6 +63,102 @@ namespace MvcPL.Controllers
         }
 
         [HttpGet]
+        public ActionResult SignInGoogle(string returnUrl)
+        {
+            string url = Url.IsLocalUrl(returnUrl) ? returnUrl : Url.Action("Index", "Photos");
+
+            return new ChallengeResult("Google",
+                Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = url }));
+        }
+
+        public ActionResult ExternalLoginCallback(string returnUrl)
+        {
+            string userEmail = null;
+            try
+            {
+                userEmail = User.Identity.GetEmail();
+            }
+            catch (ArgumentNullException)
+            {
+
+            }
+
+            if (userEmail == null)
+            {
+                return View("SignIn", returnUrl);
+            }
+
+            if (!accountService.CheckIfUserExistsByEmail(userEmail))
+            {
+                AuthenticationManager.SignOut();
+                TempData["error"] = "Incorrect login or password.";
+                return new RedirectResult(Url.Action("SignIn", "Account", returnUrl));
+            }
+
+            SetCookies(userEmail.Split('@')[0], "google");
+
+            //User.Identity.AddClaims(ClaimTypes.AuthenticationMethod, "google");
+            //User.Identity.AddClaims("Login", userEmail.Split('@')[0]);
+
+            return new RedirectResult(returnUrl);
+        }
+
+        public ActionResult ExternalSignUpCallback(string returnUrl)
+        {
+            string userEmail = null;
+            try
+            {
+                userEmail = User.Identity.GetEmail();
+            }
+            catch (ArgumentNullException)
+            {
+
+            }
+
+            if (userEmail == null)
+            {
+                return View("SignUp");
+            }
+
+            if (accountService.CheckIfUserExistsByEmail(userEmail))
+            {
+                TempData["error"] = $"user {userEmail} alreade exists";
+                AuthenticationManager.SignOut();
+                return new RedirectResult(Url.Action("SignUp", "Account"));
+            }
+
+            IIdentity identity = User.Identity;
+            var email = identity.GetEmail();
+            var name = identity.GetClaims(ClaimTypes.GivenName);
+            string photoUrl = null;
+            //identity.AddClaims(ClaimTypes.AuthenticationMethod, "google");
+            var login = userEmail.Split('@')[0];
+            //User.Identity.AddClaims("Login", login);
+
+            SetCookies(login, "google");
+
+            Uri apiRequestUri = new Uri("http://picasaweb.google.com/data/entry/api/user/" + email + "?alt=json");
+
+            using (var webClient = new System.Net.WebClient())
+            {
+                try
+                {
+                    var json = webClient.DownloadString(apiRequestUri);
+                    JObject o = JObject.Parse(json);
+                    photoUrl = o["entry"]["gphoto$thumbnail"]["$t"].Value<string>();
+                }
+                catch (Exception)
+                { 
+
+                }
+            }
+
+            accountService.CreateUser(login, email, name, photoUrl, "google");
+
+            return RedirectToAction("Index", "Photos");
+        }
+
+        [HttpGet]
         public ActionResult SignUp(string returnUrl, bool? fancybox)
         {
             if (fancybox == true)
@@ -62,7 +167,7 @@ namespace MvcPL.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult SignUp(SignUpViewModel model)
         {
             if (accountService.CheckIfUserExists(model.Login))
@@ -73,12 +178,11 @@ namespace MvcPL.Controllers
 
             if (ModelState.IsValid)
             {
-                var membershipUser = ((CustomMembershipProvider)Membership.Provider)
-                    .CreateUser(model.Login, model.Email, model.Password);
+                var user = accountService.CreateUser(model.Login, model.Email, model.Password);
 
-                if (membershipUser != null)
+                if (user != null)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Login, false);
+                    SetCookies(user.Login, user.Login, user.Email, "forms");
                     return RedirectToAction("Index", "Photos");
                 }
                 else
@@ -87,6 +191,12 @@ namespace MvcPL.Controllers
                 }
             }
             return View("SignUp", model);
+        }
+
+        public ActionResult SignUpGoogle()
+        {
+            return new ChallengeResult("Google",
+                Url.Action("ExternalSignUpCallback", "Account"));
         }
 
         public ActionResult ValidateSignUp(string login)
@@ -106,8 +216,36 @@ namespace MvcPL.Controllers
         [Authorize]
         public ActionResult SignOut()
         {
-            FormsAuthentication.SignOut();
+            AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Photos");
+        }
+
+        [NonAction]
+        private void SetCookies(string login, string nameIdentifier, string email, string method)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim("Login", login),
+                new Claim(ClaimTypes.NameIdentifier, nameIdentifier),
+                new Claim(ClaimTypes.Email, email),
+                new Claim(ClaimTypes.AuthenticationMethod, method)
+            };
+
+            AuthenticationManager.SignOut();
+            AuthenticationManager.SignIn(new AuthenticationProperties()
+            {
+                IsPersistent = false
+            }, new ClaimsIdentity(claims, "Cookies"));
+        }
+
+        [NonAction]
+        private void SetCookies(string login, string method)
+        {
+            User.Identity.AddClaims(ClaimTypes.AuthenticationMethod, method);
+            User.Identity.AddClaims("Login", login);
+
+            AuthenticationManager.AuthenticationResponseGrant = new AuthenticationResponseGrant(
+                new ClaimsPrincipal(User.Identity), new AuthenticationProperties() { IsPersistent = false} );
         }
     }
 }
